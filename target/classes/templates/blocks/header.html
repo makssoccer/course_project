@@ -1,0 +1,19 @@
+<div th:fragment="header">
+  <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+    <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+      <span class="fs-4">Football Blog</span>
+    </a>
+    [[${#httpServletRequest.remoteUser}]]
+    <div th:each="element : ${user}" class=""alert alert-info mt-2>
+      <h1 th:text="${element.id}"></h1>
+      <h3>Country</h3>
+      </div>
+    <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+      <a class="me-3 py-2 text-dark text-decoration-none" href="/">Главная</a>
+      <a class="me-3 py-2 text-dark text-decoration-none" href="/players">Футболисты</a>
+      <a class="me-3 py-2 text-dark text-decoration-none" href="/players/add">Добавить футболиста</a>
+      <a class="me-3 py-2 text-dark text-decoration-none" href="/teams">Клубы</a>
+      <a class="me-3 py-2 text-dark text-decoration-none" href="/teams/add">Добавить Клуб</a>
+    </nav>
+  </div>
+</div>

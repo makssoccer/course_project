@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <title>Spring Security Example </title>
+</head>
+<body>
+<!--Add new user-->
+<div class="registration-page">
+  <div class="form">
+    <form th:action="@{/registration}" method="post">
+      <h2 align="center">Регистрация</h2>
+      <input type="text" id="username" name="username" placeholder="login" required/>
+      <input type="email" pattern="[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+\.[a-z]*" id="email" name="email" placeholder="email@gmail.com" required>
+      <input type="password" id="password1" name="password" placeholder="password" required/>
+      <input type="password" id="password2" name="checkPass" placeholder="check password" required>
+      <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+      <div><input type="submit" onclick="validatePassword();al();" value="Sign In"/></div>
+      <p class="message">Are you register? <a href="/login">Sign on account</a></p>
+    </form>
+  </div>
+</div>
+<script>
+  function validatePassword(){
+    var pass2 = document.getElementById("password1").value;
+    var pass1 = document.getElementById("password2").value;
+    if(pass1 != pass2)
+      document.getElementById("password2").setCustomValidity("Пароли не совпадают");
+    else
+      document.getElementById("password2").setCustomValidity('');
+  }
+
+  function al(){
+    var log = document.getElementById("username").value;
+    var ema = document.getElementById("email").value;
+    var pass = document.getElementById("password1").value;
+    var pass1 = document.getElementById("password2").value;
+    if(log!="" && ema !="" && pass!="" && pass1!=""){
+      var res = alert("Пользователь создан");
+    }
+    else{
+      var res = alert("Введите данные пользователя");
+    }
+  }
+
+</script>
+</body>
+</html>
