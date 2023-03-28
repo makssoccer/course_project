@@ -70,7 +70,7 @@ public class PlayerController {
     }
     //////Получение данных об Игроке для его дальнейшего редактирования
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/players/{id}edit/")
+    @GetMapping("/players/{id}edit")
     public String playerEdit(@PathVariable(value="id") long id, Model model){
         if(!playerRepository.existsById(id)){
             return "redirect:/players";}
@@ -81,7 +81,7 @@ public class PlayerController {
     }
     ////Редактирование данных Игрока
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/players/{id}edit/")
+    @PostMapping("/players/{id}edit")
     public String playerPostUbdate(@PathVariable(value="id") long id, @RequestParam String name, @RequestParam Team team, @RequestParam Country country , @RequestParam String nickname, @RequestParam String fullText, Model model) {
         playerServise.editPlayerToDB(id, name, nickname, fullText, team,country);
         return "redirect:/players";}

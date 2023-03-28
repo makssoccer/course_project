@@ -1,6 +1,8 @@
 package com.example.opinion_about_the_players.models;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name="review")
@@ -19,14 +21,9 @@ public class Review {
     @JoinColumn(name = "coach_id")
     private Coach coach;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User usr;
-
-
-
-
 
     @Column(name = "anons")
     private String anons;
@@ -34,8 +31,8 @@ public class Review {
     @Column(name = "fullRewiew")
     private String fullRewiew;
 
-    public Review() {
-    }
+    @Column(name = "timePost")
+    private LocalDateTime timePost;
 
     public User getUser() {
         return usr;
@@ -83,5 +80,15 @@ public class Review {
 
     public void setFullRewiew(String fullRewiew) {
         this.fullRewiew = fullRewiew;
+    }
+    public LocalDateTime getTimePost() {
+        return timePost;
+    }
+
+    public void setTimePost(LocalDateTime timePost) {
+        this.timePost = timePost;
+    }
+
+    public Review() {
     }
 }

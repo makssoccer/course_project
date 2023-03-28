@@ -34,6 +34,7 @@ public class Player {
     private List<Review> reviews;
 
     private String name;
+
     private String surname;
     private LocalDateTime dob;
     private String nickname;

@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 @Service
 public class ReviewServise {
 
@@ -26,10 +30,14 @@ public class ReviewServise {
 
     public void saveRiviewsPlayer(String anons, String fullReviews, long id ) {
         Review review = new Review();
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+        LocalDateTime current = LocalDateTime.of(date, time);
         Player player= playerRepository.findById(id).orElseThrow();
         review.setAnons(anons);
         review.setFullRewiew(fullReviews);
         review.setPlayer(player);
+        review.setTimePost(current);
         reviewRepository.save(review);
     }
 }

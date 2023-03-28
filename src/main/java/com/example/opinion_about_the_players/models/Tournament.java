@@ -1,6 +1,7 @@
 package com.example.opinion_about_the_players.models;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -24,6 +25,9 @@ public class Tournament {
 
 
     private String nameTournament;
+
+    @Column(name = "seasonTour")
+    private String seasonTour;
 
     public Country getCountry() {
         return country;
@@ -55,6 +59,14 @@ public class Tournament {
 
     public void setNameTournament(String nameTournament) {
         this.nameTournament = nameTournament;
+    }
+
+    public String getDataTour(String seasonTour) {
+        return seasonTour;
+    }
+
+    public void setDataTour(String seasonTour) {
+        this.seasonTour = seasonTour;
     }
 
     public void Country(){

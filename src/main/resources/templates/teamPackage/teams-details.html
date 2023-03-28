@@ -20,6 +20,7 @@
         <h3>Players</h3>
         <div th:each="el : ${element.getPlayers()}">
             <p th:text="${el.name}">VALUE</p>
+<!--            <a th:href="'/players/' + ${el.id}"  th:text="${el.name}">VALUE</a>-->
         </div><br>
         <a th:href="'/teams/' + ${element.id} + 'edit'" class="btn btn-warning">Редактировать</a><br><br>
         <form th:action="'/teams/' + ${element.id} + 'remove'" method="post">
