@@ -32,4 +32,7 @@ out/
 /mvnw.cmd
 /pom.xml
 /desktop.ini
-target/
+/target/
+/target/classes/
+/target/classes/com/
+/target/classes/templates/
