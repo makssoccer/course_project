@@ -32,4 +32,4 @@ out/
 /mvnw.cmd
 /pom.xml
 /desktop.ini
-/target/
+target/
