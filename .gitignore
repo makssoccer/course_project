@@ -30,7 +30,6 @@ out/
 *.iws
 /mvnw
 /mvnw.cmd
-/pom.xml
 /desktop.ini
 /target/
 /target/classes/
