@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title th:text="${tilte}" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -14,6 +15,8 @@
 <body>
 <header th:insert="blocks/header :: header "></header>
 <div class="container mt-5">
+    <div sec:authorize="isAuthenticated()">
+        Authenticated as <span sec:authentication="name"></span></div>
 
     <div th:each="element : ${player}" class=""alert alert-info mt-2>
         <h1 th:text="${element.name}"></h1>

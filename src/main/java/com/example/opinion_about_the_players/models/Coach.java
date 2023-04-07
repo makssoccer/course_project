@@ -73,6 +73,7 @@ public class Coach {
     }
 
 
+
     public String getDescriptionsCoach() {
         return descriptionsCoach;
     }

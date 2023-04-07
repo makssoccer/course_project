@@ -2,6 +2,7 @@ package com.example.opinion_about_the_players.conrtrollers;
 
 import com.example.opinion_about_the_players.models.Team;
 import com.example.opinion_about_the_players.models.Country;
+import com.example.opinion_about_the_players.models.User;
 import com.example.opinion_about_the_players.repository.PlayerRepository;
 import com.example.opinion_about_the_players.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,8 +65,8 @@ public class PlayerController {
     }
 
     @PostMapping("/players/{id}")
-    public String playerPostReview(@PathVariable(value="id") long id,@RequestParam String anons, @RequestParam String fullReview, Model model){
-        reviewServise.saveRiviewsPlayer(anons,fullReview,id);
+    public String playerPostReview(@PathVariable(value="id") long id, @RequestParam String anons, @RequestParam String fullReview, Model model){
+        reviewServise.saveRiviewsPlayer(anons, fullReview, id);
         return "redirect:/players";
     }
     //////Получение данных об Игроке для его дальнейшего редактирования

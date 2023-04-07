@@ -2,9 +2,14 @@ package com.example.opinion_about_the_players.service;
 
 import com.example.opinion_about_the_players.models.Player;
 import com.example.opinion_about_the_players.models.Review;
+import com.example.opinion_about_the_players.models.User;
 import com.example.opinion_about_the_players.repository.PlayerRepository;
 import com.example.opinion_about_the_players.repository.ReviewRepositiry;
+import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -29,6 +34,10 @@ public class ReviewServise {
     }
 
     public void saveRiviewsPlayer(String anons, String fullReviews, long id ) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
         Review review = new Review();
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
@@ -38,6 +47,8 @@ public class ReviewServise {
         review.setFullRewiew(fullReviews);
         review.setPlayer(player);
         review.setTimePost(current);
+        review.setUser(user);
+
         reviewRepository.save(review);
     }
 }
