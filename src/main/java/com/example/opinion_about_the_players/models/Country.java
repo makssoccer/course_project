@@ -7,7 +7,6 @@ import java.util.List;
 @Table(name = "country")
 public class Country {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -17,7 +16,7 @@ public class Country {
     private List<Player> players;
 
     ////connection with tournament
-    @OneToMany(mappedBy="country", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
     private List<Tournament> tournament;
 
     public List<Tournament> getTournament() {
@@ -56,6 +55,7 @@ public class Country {
     public void setId(Long id) {
         this.id = id;
     }
+
     public Country(String nameCountry) {
         this.nameCountry = nameCountry;
     }

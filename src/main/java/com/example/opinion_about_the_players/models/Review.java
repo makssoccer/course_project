@@ -2,10 +2,9 @@ package com.example.opinion_about_the_players.models;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Entity
-@Table(name="review")
+@Table(name = "review")
 public class Review {
 
     @Id
@@ -29,7 +28,7 @@ public class Review {
     private String anons;
 
     @Column(name = "fullRewiew")
-    private String fullRewiew;
+    private String fullReview;
 
     @Column(name = "timePost")
     private LocalDateTime timePost;
@@ -74,13 +73,14 @@ public class Review {
         this.anons = anons;
     }
 
-    public String getFullRewiew() {
-        return fullRewiew;
+    public String getFullReview() {
+        return fullReview;
     }
 
-    public void setFullRewiew(String fullRewiew) {
-        this.fullRewiew = fullRewiew;
+    public void setFullReview(String fullRewiew) {
+        this.fullReview = fullRewiew;
     }
+
     public LocalDateTime getTimePost() {
         return timePost;
     }
@@ -90,5 +90,14 @@ public class Review {
     }
 
     public Review() {
+    }
+
+    public Review(Player player, User usr, String anons, String fullReview, LocalDateTime timePost) {
+        this.player = player;
+//        this.coach = coach;
+        this.usr = usr;
+        this.anons = anons;
+        this.fullReview = fullReview;
+        this.timePost = timePost;
     }
 }

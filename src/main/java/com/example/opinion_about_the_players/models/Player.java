@@ -14,7 +14,6 @@ import java.util.List;
 @Table(name = "player")
 public class Player {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -36,20 +35,23 @@ public class Player {
     private String name;
 
     private String surname;
-    private LocalDateTime dob;
-    private String nickname;
-    private String fullText;
 
+    private LocalDateTime dob;
+
+    private String nickname;
+
+    private String fullText;
 
     public Player() {
     }
-    public Player(String name, String nickname, String fullText, Team team, Country country, LocalDateTime dob) {
+
+    public Player(String name, String nickname, String fullText, Team team, Country country) {
         this.name = name;
-        this.dob=dob;
+//        this.dob=dob;
         this.nickname = nickname;
         this.fullText = fullText;
         this.team = team;
-        this.country=country;
+        this.country = country;
     }
 
 }

@@ -7,7 +7,6 @@ import java.util.List;
 @Table(name = "team")
 public class Team {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -18,18 +17,13 @@ public class Team {
 
     ////connection with coach
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "coach_team",
-            joinColumns = @JoinColumn(name = "team_id"),
-            inverseJoinColumns = @JoinColumn(name = "coach_id"))
+    @JoinTable(name = "coach_team", joinColumns = @JoinColumn(name = "team_id"), inverseJoinColumns = @JoinColumn(name = "coach_id"))
     private List<Coach> coachs;
 
     ////connection with tournament
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "tournament_team",
-            joinColumns = @JoinColumn(name = "team_id"),
-            inverseJoinColumns = @JoinColumn(name = "tournament_id"))
+    @JoinTable(name = "tournament_team", joinColumns = @JoinColumn(name = "team_id"), inverseJoinColumns = @JoinColumn(name = "tournament_id"))
     private List<Tournament> tournament;
-
 
     private String nameTeam;
 
@@ -41,19 +35,18 @@ public class Team {
         this.players = players;
     }
 
-//    public List<Coach> getCoach() {
-//        return coachs;
-//    }
-//
-//    public void setCoach(List<Coach> coachs) {
-//        this.coachs = coachs;
-//    }
-    public List<Coach> getCoachs() {return coachs;}
-    public void setCoachs(List<Coach> coachs) {this.coachs = coachs;}
+    public List<Coach> getCoachs() {
+        return coachs;
+    }
+
+    public void setCoachs(List<Coach> coachs) {
+        this.coachs = coachs;
+    }
 
     public List<Tournament> getTournament() {
         return tournament;
     }
+
     public void setTournament(List<Tournament> tournament) {
         this.tournament = tournament;
     }
@@ -65,6 +58,7 @@ public class Team {
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -72,14 +66,16 @@ public class Team {
     public String getNameTeam() {
         return nameTeam;
     }
+
     public void setNameTeam(String nameTeam) {
         this.nameTeam = nameTeam;
     }
 
-
-    public Team(String nameTeam) {
+    public Team(String nameTeam, List<Tournament> tournament) {
         this.nameTeam = nameTeam;
+        this.tournament = tournament;
     }
+
     public Team() {
     }
 }

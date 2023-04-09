@@ -19,13 +19,12 @@ public class Coach {
     private Long id;
 
     ////connection with club
-    @ManyToMany(mappedBy="tournament", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "tournament", fetch = FetchType.LAZY)
     private List<Team> team;
 
     ////connection with reviews
     @OneToMany(mappedBy = "coach", fetch = FetchType.EAGER)
     private List<Review> reviews;
-
 
     private String name;
     private String surname;
@@ -56,6 +55,7 @@ public class Coach {
     public void setSurname(String surname) {
         this.surname = surname;
     }
+
     public LocalDateTime getDob() {
         return dob;
     }
@@ -71,7 +71,6 @@ public class Coach {
     public void setName(String name) {
         this.name = name;
     }
-
 
 
     public String getDescriptionsCoach() {
@@ -92,13 +91,13 @@ public class Coach {
 
     public Coach() {
     }
+
     public Coach(String name, String fullText, List<Team> teams, Country country, LocalDateTime dob, String surname) {
         this.name = name;
-        this.surname=surname;
-        this.dob=dob;
+        this.surname = surname;
+        this.dob = dob;
         this.descriptionsCoach = fullText;
-        this.team=teams;
-
+        this.team = teams;
     }
 
 }

@@ -3,27 +3,23 @@ package com.example.opinion_about_the_players.service;
 import com.example.opinion_about_the_players.models.Country;
 import com.example.opinion_about_the_players.models.Tournament;
 import com.example.opinion_about_the_players.repository.TournamentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import java.time.LocalDate;
-
 @Service
+@AllArgsConstructor
 public class TournamentServise {
-    @Autowired
-    private TournamentRepository tournamentRepository;
+    private final TournamentRepository tournamentRepository;
 
-    public Model getTournaments(Model model){
+    public Model getModelTournaments(Model model) {
         Iterable<Tournament> tournaments = tournamentRepository.findAll();
-        return model.addAttribute("tournaments",tournaments);
+        return model.addAttribute("tournaments", tournaments);
     }
-    public  void saveTournamentToDB(String nameTournament, Country countries)
-    {
-        if (!nameTournament.equals("")) {
-            Tournament tournament =new Tournament();
-            tournament.setNameTournament(nameTournament);
-            tournament.setCountry(countries);
+
+    public void saveTournamentToDB(String nameTournament, Country countries) {
+        if (!nameTournament.isEmpty()) {
+            Tournament tournament = new Tournament(nameTournament, countries);
             tournamentRepository.save(tournament);
         }
 

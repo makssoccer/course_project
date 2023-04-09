@@ -8,21 +8,18 @@ import java.util.List;
 @Table(name = "tournament")
 public class Tournament {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
     ////connection with teams
-    @ManyToMany(mappedBy="tournament", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "tournament", fetch = FetchType.LAZY)
     private List<Team> team;
 
     ////connection with country
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "country_id")
-    private  Country country;
-
+    private Country country;
 
     private String nameTournament;
 
@@ -69,12 +66,12 @@ public class Tournament {
         this.seasonTour = seasonTour;
     }
 
-    public void Country(){
-    };
+    public Tournament() {
+    }
 
-    public void Country(String nameTournament, Country countries){
-        this.nameTournament=nameTournament;
-        this.country=countries;
-    };
+    public Tournament(String nameTournament, Country country) {
+        this.nameTournament = nameTournament;
+        this.country = country;
+    }
 
 }
