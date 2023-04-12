@@ -7,17 +7,19 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class TournamentServise {
     private final TournamentRepository tournamentRepository;
 
     public Model getModelTournaments(Model model) {
-        Iterable<Tournament> tournaments = tournamentRepository.findAll();
+        List<Tournament> tournaments = tournamentRepository.findAll();
         return model.addAttribute("tournaments", tournaments);
     }
 
-    public void saveTournamentToDB(String nameTournament, Country countries) {
+    public void saveTournament(String nameTournament, Country countries) {
         if (!nameTournament.isEmpty()) {
             Tournament tournament = new Tournament(nameTournament, countries);
             tournamentRepository.save(tournament);

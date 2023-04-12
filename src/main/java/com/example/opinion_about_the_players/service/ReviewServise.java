@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -24,12 +25,12 @@ public class ReviewServise {
     private final PlayerRepository playerRepository;
 
     public Model getReviews(Model model) {
-        Iterable<Review> reviews = reviewRepository.findAll();
+        List<Review> reviews = reviewRepository.findAll();
         return model.addAttribute("reviews", reviews);
     }
 
     public Model getModelReviews(long id, Model model) {
-        Iterable<Review> reviews = reviewRepository.getByNameWithPlayer(id);
+        List<Review> reviews = reviewRepository.getByNameWithPlayer(id);
         return model.addAttribute("reviews", reviews);
     }
 

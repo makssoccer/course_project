@@ -4,6 +4,7 @@ package com.example.opinion_about_the_players.conrtrollers;
 import com.example.opinion_about_the_players.models.Role;
 import com.example.opinion_about_the_players.models.User;
 import com.example.opinion_about_the_players.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.Collections;
 
 @Controller
+@AllArgsConstructor
 public class RegistrationController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @GetMapping("/registration")
     public String registration(Model model) {

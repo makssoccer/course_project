@@ -5,6 +5,7 @@ import com.example.opinion_about_the_players.repository.CountryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -13,11 +14,11 @@ public class CountryServise {
     private final CountryRepository countryRepository;
 
     public Model getModelCount(Model model) {
-        Iterable<Country> countries = countryRepository.findAll();
+        List<Country> countries = countryRepository.findAll();
         return model.addAttribute("countries", countries);
     }
 
-    public void saveCountryToDB(String nameCountry) {
+    public void saveCountry(String nameCountry) {
         if (!nameCountry.isEmpty()) {
             Country country = new Country(nameCountry);
             countryRepository.save(country);

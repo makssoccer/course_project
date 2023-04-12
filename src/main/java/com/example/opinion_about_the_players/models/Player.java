@@ -18,17 +18,17 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    ////connection with country
+    //connection with country
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "country_id")
     private Country country;
 
-    ////connection with club
+    //connection with club
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
 
-    ////connection with reviews
+    //connection with reviews
     @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
     private List<Review> reviews;
 

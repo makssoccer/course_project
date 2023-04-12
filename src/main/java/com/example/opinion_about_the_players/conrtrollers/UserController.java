@@ -5,6 +5,7 @@ import com.example.opinion_about_the_players.models.Role;
 import com.example.opinion_about_the_players.models.User;
 import com.example.opinion_about_the_players.repository.UserRepository;
 import com.example.opinion_about_the_players.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -12,21 +13,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/user")
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
     public String userList(Model model) {
-        Iterable<User> users = userService.findAll();
+        List<User> users = userService.findAll();
         model.addAttribute("users", users);
         model.addAttribute("roles", Role.values());
         return "user-list";

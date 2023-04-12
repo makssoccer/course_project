@@ -17,11 +17,11 @@ public class TeamServise {
     private final TeamRepository teamRepository;
 
     public Model getModelTeams(Model model) {
-        Iterable<Team> teams = teamRepository.findAll();
+        List<Team> teams = teamRepository.findAll();
         return model.addAttribute("teams", teams);
     }
 
-    public void saveTeamToDB(String nameTeam, List<Tournament> tournament) {
+    public void saveTeam(String nameTeam, List<Tournament> tournament) {
         if (!nameTeam.isEmpty()) {
             Team team = new Team(nameTeam, tournament);
             teamRepository.save(team);
@@ -35,7 +35,7 @@ public class TeamServise {
         return model.addAttribute("team", resol);
     }
 
-    public void editTeamToDB(long id, String nameTeam, List<Tournament> tournament) {
+    public void editTeam(long id, String nameTeam, List<Tournament> tournament) {
         Team team = teamRepository.findById(id).orElseThrow();
         team.setNameTeam(nameTeam);
         team.setTournaments(tournament);

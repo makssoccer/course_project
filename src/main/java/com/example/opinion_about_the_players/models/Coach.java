@@ -18,11 +18,11 @@ public class Coach {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    ////connection with club
+    //connection with club
     @ManyToMany(mappedBy = "tournament", fetch = FetchType.LAZY)
     private List<Team> team;
 
-    ////connection with reviews
+    //connection with reviews
     @OneToMany(mappedBy = "coach", fetch = FetchType.EAGER)
     private List<Review> reviews;
 

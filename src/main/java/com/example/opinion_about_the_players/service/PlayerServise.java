@@ -7,7 +7,6 @@ import com.example.opinion_about_the_players.repository.PlayerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,13 +17,13 @@ public class PlayerServise {
 
     private final PlayerRepository playerRepository;
 
-    /////заполняем
+    //заполняем
     public Model getModelPlayers(Model model) {
-        Iterable<Player> players = playerRepository.findAll();
+        List<Player> players = playerRepository.findAll();
         return model.addAttribute("players", players);
     }
 
-    public void savePlayerToDB(String namePlayer, String nickname, String fullText, Team team, Country country) {
+    public void savePlayer(String namePlayer, String nickname, String fullText, Team team, Country country) {
         Player player = new Player(namePlayer, nickname, fullText, team, country);
         playerRepository.save(player);
     }

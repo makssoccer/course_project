@@ -12,11 +12,11 @@ public class Tournament {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    ////connection with teams
+    //connection with teams
     @ManyToMany(mappedBy = "tournament", fetch = FetchType.LAZY)
     private List<Team> team;
 
-    ////connection with country
+    //connection with country
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "country_id")
     private Country country;

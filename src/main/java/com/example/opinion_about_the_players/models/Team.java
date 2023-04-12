@@ -11,16 +11,16 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    ////connection with players
+    //connection with players
     @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
     private List<Player> players;
 
-    ////connection with coach
+    //connection with coach
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "coach_team", joinColumns = @JoinColumn(name = "team_id"), inverseJoinColumns = @JoinColumn(name = "coach_id"))
     private List<Coach> coachs;
 
-    ////connection with tournament
+    //connection with tournament
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "tournament_team", joinColumns = @JoinColumn(name = "team_id"), inverseJoinColumns = @JoinColumn(name = "tournament_id"))
     private List<Tournament> tournament;
