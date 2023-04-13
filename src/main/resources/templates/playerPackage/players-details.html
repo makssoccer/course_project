@@ -38,7 +38,7 @@
 
             <div class="container-sm"
                  th:each="el : ${element.getReviews()}">
-                <div th:each="e : ${el.getUser()}">
+                <div th:each="e : ${el.getUsr()}">
                     <p th:text="${e.username}">VALUE</p></div>
                 <h3 name="jir" th:text="${el.getAnons()}">VALUE</h3>
                 <p th:text="${el.getFullReview()}">VALUE</p>

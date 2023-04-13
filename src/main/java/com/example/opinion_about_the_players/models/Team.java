@@ -1,8 +1,13 @@
 package com.example.opinion_about_the_players.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "team")
 public class Team {
@@ -26,49 +31,7 @@ public class Team {
     private List<Tournament> tournament;
 
     private String nameTeam;
-
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(List<Player> players) {
-        this.players = players;
-    }
-
-    public List<Coach> getCoachs() {
-        return coachs;
-    }
-
-    public void setCoachs(List<Coach> coachs) {
-        this.coachs = coachs;
-    }
-
-    public List<Tournament> getTournament() {
-        return tournament;
-    }
-
-    public void setTournament(List<Tournament> tournament) {
-        this.tournament = tournament;
-    }
-
-    public void setTournaments(List<Tournament> tournaments) {
-        tournament.addAll(tournaments);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNameTeam() {
-        return nameTeam;
-    }
-
-    public void setNameTeam(String nameTeam) {
-        this.nameTeam = nameTeam;
+    public Team() {
     }
 
     public Team(String nameTeam, List<Tournament> tournament) {
@@ -76,6 +39,5 @@ public class Team {
         this.tournament = tournament;
     }
 
-    public Team() {
-    }
+
 }

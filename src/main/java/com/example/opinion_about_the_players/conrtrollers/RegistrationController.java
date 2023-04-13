@@ -40,7 +40,7 @@ public class RegistrationController {
             return "error-register";
         }
         user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
+        user.setRoles(Collections.singleton(Role.ADMIN));
         userRepository.save(user);
         model.addAttribute("message", "New account!");
         model.addAttribute("title", "New account");

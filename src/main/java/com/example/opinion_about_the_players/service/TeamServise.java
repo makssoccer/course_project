@@ -28,21 +28,21 @@ public class TeamServise {
         }
     }
 
-    public Model getInfoByTeams(long id, Model model) {
+    public Model getInfoByTeams(Long id, Model model) {
         Optional<Team> team = teamRepository.findById(id);
         List<Team> resol = new ArrayList<>();
         team.ifPresent(resol::add);
         return model.addAttribute("team", resol);
     }
 
-    public void editTeam(long id, String nameTeam, List<Tournament> tournament) {
+    public void editTeam(Long id, String nameTeam, List<Tournament> tournament) {
         Team team = teamRepository.findById(id).orElseThrow();
         team.setNameTeam(nameTeam);
-        team.setTournaments(tournament);
+        team.setTournament(tournament);
         teamRepository.save(team);
     }
 
-    public void deleteTeamOnDB(long id) {
+    public void deleteTeamOnDB(Long id) {
         Team team = teamRepository.findById(id).orElseThrow();
         teamRepository.delete(team);
     }

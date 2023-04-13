@@ -19,7 +19,7 @@ public class Player {
     private Long id;
 
     //connection with country
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     private Country country;
 
@@ -29,12 +29,10 @@ public class Player {
     private Team team;
 
     //connection with reviews
-    @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "player", fetch = FetchType.LAZY)
     private List<Review> reviews;
 
     private String name;
-
-    private String surname;
 
     private LocalDateTime dob;
 

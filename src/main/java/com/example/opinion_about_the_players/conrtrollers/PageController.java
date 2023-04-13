@@ -45,7 +45,12 @@ public class PageController {
     //Добавление клуба, лиги и страну
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/teams/add")
-    public String teamPostAdd(@RequestParam String nameTeam, @RequestParam List<Tournament> tournament, @RequestParam Country country, @RequestParam String nameCountry, @RequestParam String nameTournament, Model model) {
+    public String teamPostAdd(@RequestParam(value = "nameTeam", required = false) String nameTeam,
+                              @RequestParam(value = "tournament", required = false) List<Tournament> tournament,
+                              @RequestParam(value = "country", required = false) Country country,
+                              @RequestParam(value = "nameCountry", required = false) String nameCountry,
+                              @RequestParam(value = "nameTournament", required = false) String nameTournament,
+                              Model model) {
         tournamentServise.saveTournament(nameTournament, country);
         countryServise.saveCountry(nameCountry);
         teamServise.saveTeam(nameTeam, tournament);
@@ -54,7 +59,7 @@ public class PageController {
 
     //Получаем информацию
     @GetMapping("/teams/{id}")
-    public String teamDetails(@PathVariable(value = "id") long id, Model model) {
+    public String teamDetails(@PathVariable(value = "id") Long id, Model model) {
         if (!teamRepository.existsById(id)) {
             return "redirect:/teams";
         }
@@ -64,7 +69,10 @@ public class PageController {
     }
 
     @PostMapping("/teams/{id}")
-    public String teamPostDetails(@PathVariable(value = "id") long id, @RequestParam String nameTeam, @RequestParam List<Tournament> tournament, Model model) {
+    public String teamPostDetails(@PathVariable(value = "id") Long id,
+                                  @RequestParam String nameTeam,
+                                  @RequestParam List<Tournament> tournament,
+                                  Model model) {
         if (!teamRepository.existsById(id)) {
             return "redirect:/teams";
         }
@@ -74,7 +82,7 @@ public class PageController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/teams/{id}edit")
-    public String teamEdit(@PathVariable(value = "id") long id, Model model) {
+    public String teamEdit(@PathVariable(value = "id") Long id, Model model) {
         if (!teamRepository.existsById(id)) {
             return "redirect:/teams";
         }
@@ -85,14 +93,17 @@ public class PageController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/teams/{id}edit")
-    public String teamPostUbdate(@PathVariable(value = "id") long id, @RequestParam String nameTeam, @RequestParam List<Tournament> tournament, Model model) {
+    public String teamPostUbdate(@PathVariable(value = "id") Long id,
+                                 @RequestParam String nameTeam,
+                                 @RequestParam List<Tournament> tournament,
+                                 Model model) {
         teamServise.editTeam(id, nameTeam, tournament);
         return "redirect:/teams";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/teams/{id}remove")
-    public String teamPostDelete(@PathVariable(value = "id") long id, Model model) {
+    public String teamPostDelete(@PathVariable(value = "id") Long id, Model model) {
         teamServise.deleteTeamOnDB(id);
         return "redirect:/teams";
     }

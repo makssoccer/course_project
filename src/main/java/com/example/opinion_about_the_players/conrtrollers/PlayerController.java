@@ -43,14 +43,19 @@ public class PlayerController {
     //create player
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/players/add")
-    public String playerPostAdd(@RequestParam String name, @RequestParam String nickname, @RequestParam String fullText, @RequestParam Team team, @RequestParam Country country, Model model) {
+    public String playerPostAdd(@RequestParam String name,
+                                @RequestParam String nickname,
+                                @RequestParam String fullText,
+                                @RequestParam(value = "team", required = false) Team team,
+                                @RequestParam(value = "country", required = false) Country country,
+                                Model model) {
         playerServise.savePlayer(name, nickname, fullText, team, country);
         return "redirect:/players";
     }
 
     //Страница конкретного Игрока
     @GetMapping("/players/{id}")
-    public String playerDetails(@PathVariable(value = "id") long id, Model model) {
+    public String playerDetails(@PathVariable(value = "id") Long id, Model model) {
         if (!playerRepository.existsById(id)) {
             return "redirect:/players";
         }
@@ -60,7 +65,10 @@ public class PlayerController {
     }
 
     @PostMapping("/players/{id}")
-    public String playerPostReview(@PathVariable(value = "id") long id, @RequestParam String anons, @RequestParam String fullReview, Model model) {
+    public String playerPostReview(@PathVariable(value = "id") Long id,
+                                   @RequestParam String anons,
+                                   @RequestParam String fullReview,
+                                   Model model) {
         reviewServise.saveRiviewsPlayer(anons, fullReview, id);
         return "redirect:/players";
     }
@@ -68,7 +76,7 @@ public class PlayerController {
     //Получение данных об Игроке для его дальнейшего редактирования
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/players/{id}edit")
-    public String playerEdit(@PathVariable(value = "id") long id, Model model) {
+    public String playerEdit(@PathVariable(value = "id") Long id, Model model) {
         if (!playerRepository.existsById(id)) {
             return "redirect:/players";
         }
@@ -81,7 +89,13 @@ public class PlayerController {
     //Редактирование данных Игрока
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/players/{id}edit")
-    public String playerPostUbdate(@PathVariable(value = "id") long id, @RequestParam String name, @RequestParam Team team, @RequestParam Country country, @RequestParam String nickname, @RequestParam String fullText, Model model) {
+    public String playerPostUbdate(@PathVariable(value = "id") Long id,
+                                   @RequestParam String name,
+                                   @RequestParam Team team,
+                                   @RequestParam(value = "country", required = false) Country country,
+                                   @RequestParam String nickname,
+                                   @RequestParam String fullText,
+                                   Model model) {
         playerServise.editPlayerToDB(id, name, nickname, fullText, team, country);
         return "redirect:/players";
     }
@@ -89,7 +103,7 @@ public class PlayerController {
     //Удаление Игрока
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/players/{id}remove")
-    public String playerPostDelete(@PathVariable(value = "id") long id, Model model) {
+    public String playerPostDelete(@PathVariable(value = "id") Long id, Model model) {
         playerServise.deletePlayerOnDB(id);
         return "redirect:/players";
     }

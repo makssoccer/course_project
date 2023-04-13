@@ -29,16 +29,16 @@ public class ReviewServise {
         return model.addAttribute("reviews", reviews);
     }
 
-    public Model getModelReviews(long id, Model model) {
+    public Model getModelReviews(Long id, Model model) {
         List<Review> reviews = reviewRepository.getByNameWithPlayer(id);
         return model.addAttribute("reviews", reviews);
     }
 
-    public void saveRiviewsPlayer(String anons, String fullReviews, long id) {
+    public void saveRiviewsPlayer(String anons, String fullReviews, Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         LocalDateTime current = LocalDateTime.of(LocalDate.now(), LocalTime.now());
-        Player player = playerRepository.findById(id).orElseThrow();
+        Player player = playerRepository.getPlayerW(id);
         Review review = new Review(player, user, anons, fullReviews, current);
         reviewRepository.save(review);
     }

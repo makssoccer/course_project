@@ -1,8 +1,12 @@
 package com.example.opinion_about_the_players.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
-
+@Setter
+@Getter
 @Entity
 @Table(name = "review")
 public class Review {
@@ -12,11 +16,11 @@ public class Review {
     private long id;
 
     //connection with player
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "player_id")
     private Player player;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coach_id")
     private Coach coach;
 
@@ -32,62 +36,6 @@ public class Review {
 
     @Column(name = "timePost")
     private LocalDateTime timePost;
-
-    public User getUser() {
-        return usr;
-    }
-
-    public void setUser(User user) {
-        this.usr = user;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public Coach getCoach() {
-        return coach;
-    }
-
-    public void setCoach(Coach coach) {
-        this.coach = coach;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getAnons() {
-        return anons;
-    }
-
-    public void setAnons(String anons) {
-        this.anons = anons;
-    }
-
-    public String getFullReview() {
-        return fullReview;
-    }
-
-    public void setFullReview(String fullRewiew) {
-        this.fullReview = fullRewiew;
-    }
-
-    public LocalDateTime getTimePost() {
-        return timePost;
-    }
-
-    public void setTimePost(LocalDateTime timePost) {
-        this.timePost = timePost;
-    }
 
     public Review() {
     }
