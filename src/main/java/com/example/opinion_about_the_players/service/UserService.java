@@ -1,10 +1,9 @@
 package com.example.opinion_about_the_players.service;
 
-import com.example.opinion_about_the_players.models.Player;
 import com.example.opinion_about_the_players.models.Role;
 import com.example.opinion_about_the_players.models.User;
 import com.example.opinion_about_the_players.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,21 +18,19 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class UserService implements UserDetailsService {
+    private final UserRepository userRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    public Model getUsers(Model model){
-        Iterable<User> users = userRepository.findAll();
-        return model.addAttribute("users",users);
-    };
+    public Model getModelUsers(Model model) {
+        List<User> users = userRepository.findAll();
+        return model.addAttribute("users", users);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username);
     }
-
 
     public List<User> findAll() {
         return userRepository.findAll();
@@ -52,7 +49,6 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
-
     public void userTurnOffActive(User user) {
         user.setActive(false);
         userRepository.save(user);
@@ -64,18 +60,17 @@ public class UserService implements UserDetailsService {
         boolean isEmailWasChanged = (email != null && !email.equals(userEmail)) ||
                 (userEmail != null && !userEmail.equals(email));
 
-        if(isEmailWasChanged){
+        if (isEmailWasChanged) {
             user.setEmail(email);
            /*if(!StringUtils.isEmpty(email)){
                user.set;   //aктивация по почте
            }*/
         }
 
-        if(!StringUtils.isEmpty(password)){
+        if (!StringUtils.isEmpty(password)) {
             user.setPassword(password);
         }
 
         userRepository.save(user);
     }
-
 }

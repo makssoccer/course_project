@@ -14,42 +14,42 @@ import java.util.List;
 @Table(name = "player")
 public class Player {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    ////connection with country
-    @ManyToOne(fetch = FetchType.EAGER)
+    //connection with country
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     private Country country;
 
-    ////connection with club
+    //connection with club
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
 
-    ////connection with reviews
-    @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
+    //connection with reviews
+    @OneToMany(mappedBy = "player", fetch = FetchType.LAZY)
     private List<Review> reviews;
 
     private String name;
 
-    private String surname;
     private LocalDateTime dob;
-    private String nickname;
-    private String fullText;
 
+    private String nickname;
+
+    private String fullText;
 
     public Player() {
     }
-    public Player(String name, String nickname, String fullText, Team team, Country country, LocalDateTime dob) {
+
+    public Player(String name, String nickname, String fullText, Team team, Country country) {
         this.name = name;
-        this.dob=dob;
+//        this.dob=dob;
         this.nickname = nickname;
         this.fullText = fullText;
         this.team = team;
-        this.country=country;
+        this.country = country;
     }
 
 }

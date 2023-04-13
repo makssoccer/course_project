@@ -6,7 +6,7 @@ import com.example.opinion_about_the_players.repository.TeamRepository;
 import com.example.opinion_about_the_players.service.TeamServise;
 import com.example.opinion_about_the_players.service.CountryServise;
 import com.example.opinion_about_the_players.service.TournamentServise;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,81 +18,94 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 public class PageController {
-
-    @Autowired
-    private TeamRepository teamRepository;
-    @Autowired
-    private TeamServise teamServise;
-    @Autowired
-    private TournamentServise tournamentServise;
-    @Autowired
-    private CountryServise countryServise;
+    private final TeamRepository teamRepository;
+    private final TeamServise teamServise;
+    private final TournamentServise tournamentServise;
+    private final CountryServise countryServise;
 
 
-
-///////Вывод всех клубов на экран
+    //Вывод всех клубов на экран
     @GetMapping("/teams")
-    public String teamMain(Model model){
-        teamServise.getTeams(model);
+    public String teamMain(Model model) {
+        teamServise.getModelTeams(model);
         return "teamPackage/teams";
     }
-//////получаем все турниры
+
+    //получаем все турниры
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/teams/add")
-    public String teamAdd(Model model){
-        tournamentServise.getTournaments(model);
-        countryServise.getCountries(model);
+    public String teamAdd(Model model) {
+        tournamentServise.getModelTournaments(model);
+        countryServise.getModelCount(model);
         return "teamPackage/teams-add";
     }
-    ////Добавление клуба, лиги и страну
+
+    //Добавление клуба, лиги и страну
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/teams/add")
-    public String teamPostAdd(@RequestParam String nameteam, @RequestParam List<Tournament> tournament, @RequestParam Country country, @RequestParam String nameCountry, @RequestParam String nameTournament, Model model) {
-        tournamentServise.saveTournamentToDB(nameTournament,country);
-        countryServise.saveCountryToDB(nameCountry);
-        teamServise.saveTeamToDB(nameteam, tournament);
-            return "redirect:/teams";
+    public String teamPostAdd(@RequestParam(value = "nameTeam", required = false) String nameTeam,
+                              @RequestParam(value = "tournament", required = false) List<Tournament> tournament,
+                              @RequestParam(value = "country", required = false) Country country,
+                              @RequestParam(value = "nameCountry", required = false) String nameCountry,
+                              @RequestParam(value = "nameTournament", required = false) String nameTournament,
+                              Model model) {
+        tournamentServise.saveTournament(nameTournament, country);
+        countryServise.saveCountry(nameCountry);
+        teamServise.saveTeam(nameTeam, tournament);
+        return "redirect:/teams";
     }
-////Получаем информацию
+
+    //Получаем информацию
     @GetMapping("/teams/{id}")
-    public String teamDetails(@PathVariable(value="id") long id, Model model){
-        if(!teamRepository.existsById(id)){
+    public String teamDetails(@PathVariable(value = "id") Long id, Model model) {
+        if (!teamRepository.existsById(id)) {
             return "redirect:/teams";
         }
-        tournamentServise.getTournaments(model);
-        teamServise.getInfoByTeams(id,model);
-      return "teamPackage/teams-details";
+        tournamentServise.getModelTournaments(model);
+        teamServise.getInfoByTeams(id, model);
+        return "teamPackage/teams-details";
     }
+
     @PostMapping("/teams/{id}")
-    public String teamPostDetails(@PathVariable(value="id") long id, @RequestParam String nameteam, @RequestParam List<Tournament> tournament, Model model){
-        if(!teamRepository.existsById(id)){
+    public String teamPostDetails(@PathVariable(value = "id") Long id,
+                                  @RequestParam String nameTeam,
+                                  @RequestParam List<Tournament> tournament,
+                                  Model model) {
+        if (!teamRepository.existsById(id)) {
             return "redirect:/teams";
         }
-        teamServise.editTeamToDB(id, nameteam, tournament);
+        teamServise.editTeam(id, nameTeam, tournament);
         return "redirect:/teams-details";
     }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/teams/{id}edit")
-    public String teamEdit(@PathVariable(value="id") long id,Model model){
-        if(!teamRepository.existsById(id)){
-            return "redirect:/teams";}
-        tournamentServise.getTournaments(model);
+    public String teamEdit(@PathVariable(value = "id") Long id, Model model) {
+        if (!teamRepository.existsById(id)) {
+            return "redirect:/teams";
+        }
+        tournamentServise.getModelTournaments(model);
         teamServise.getInfoByTeams(id, model);
         return "teamPackage/teams-edit";
     }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/teams/{id}edit")
-    public String teamPostUbdate(@PathVariable(value = "id") long id, @RequestParam String nameteam, @RequestParam List<Tournament> tournament, Model model){
-        teamServise.editTeamToDB(id, nameteam,tournament);
-        return "redirect:/teams";
-    }
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping("/teams/{id}remove")
-    public String teamPostDelete(@PathVariable(value="id") long id,Model model) {
-        teamServise.deleteTeamOnDB(id);
+    public String teamPostUbdate(@PathVariable(value = "id") Long id,
+                                 @RequestParam String nameTeam,
+                                 @RequestParam List<Tournament> tournament,
+                                 Model model) {
+        teamServise.editTeam(id, nameTeam, tournament);
         return "redirect:/teams";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/teams/{id}remove")
+    public String teamPostDelete(@PathVariable(value = "id") Long id, Model model) {
+        teamServise.deleteTeamOnDB(id);
+        return "redirect:/teams";
+    }
 
 }

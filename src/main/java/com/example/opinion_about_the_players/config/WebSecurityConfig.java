@@ -16,7 +16,6 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    User user;
 
     @Autowired
     private UserService userService;
@@ -24,22 +23,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.cors().disable() .csrf().disable();
+        http.cors().disable().csrf().disable();
         http
                 .authorizeRequests()
-                    .antMatchers("/","/registration", "/teams","/players","/players/{id}","/main").permitAll()
-                    .antMatchers().hasAuthority(Role.USER.getAuthority())
-                    .antMatchers("/**").hasAuthority(Role.ADMIN.getAuthority())
-                    .anyRequest().authenticated()
+                .antMatchers("/", "/registration", "/teams", "/players", "/players/{id}", "/main").permitAll()
+                .antMatchers().hasAuthority(Role.USER.getAuthority())
+                .antMatchers("/**").hasAuthority(Role.ADMIN.getAuthority())
+                .anyRequest().authenticated()
                 .and()
-                    .formLogin()
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/")
-                    .permitAll()
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/")
+                .permitAll()
                 .and()
-                    .logout()
-                    .permitAll()
-                    .logoutSuccessUrl("/");
+                .logout()
+                .permitAll()
+                .logoutSuccessUrl("/");
     }
 
     @Override

@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 
     @GetMapping("/")
-    public String home( Model model) {
+    public String home(Model model) {
         model.addAttribute("title", "Главная страница");
 
         return "home";
     }
+
     @GetMapping("/main")
-    public String main( Model model) {
+    public String main(Model model) {
         model.addAttribute("title", "Главная страница");
 
         return "main";

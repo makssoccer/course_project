@@ -2,26 +2,28 @@ package com.example.opinion_about_the_players.service;
 
 import com.example.opinion_about_the_players.models.Country;
 import com.example.opinion_about_the_players.repository.CountryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
 @Service
+@AllArgsConstructor
 public class CountryServise {
 
-    @Autowired
-    CountryRepository countryRepository;
-
-    public Model getCountries(Model model){
-        Iterable<Country> countries= countryRepository.findAll();
-        return model.addAttribute("countries",countries);
+    private final CountryRepository countryRepository;
+@Transactional
+    public Model getModelCount(Model model) {
+        List<Country> countries = countryRepository.findAll();
+        return model.addAttribute("countries", countries);
     }
 
-     public  void saveCountryToDB(String nameCountry) {
-         if (!nameCountry.equals("")) {
-             Country country = new Country();
-             country.setNameСountry(nameCountry);
-             countryRepository.save(country);
-         }
-     }
+    public void saveCountry(String nameCountry) {
+        if (!nameCountry.isEmpty()) {
+            Country country = new Country(nameCountry);
+            countryRepository.save(country);
+        }
+    }
 }
