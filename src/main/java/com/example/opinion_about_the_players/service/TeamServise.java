@@ -24,8 +24,8 @@ public class TeamServise {
     }
     @Transactional
     public boolean existsTeam(Long id) {
-        Boolean is =teamRepository.existsById(id);
-        return is;
+        return teamRepository.existsById(id);
+
     }
     @Transactional
     public void saveTeam(String nameTeam, List<Tournament> tournament) {

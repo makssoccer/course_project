@@ -75,9 +75,6 @@ public class UserService implements UserDetailsService {
 
         if (isEmailWasChanged) {
             user.setEmail(email);
-           /*if(!StringUtils.isEmpty(email)){
-               user.set;   //aктивация по почте
-           }*/
         }
 
         if (!StringUtils.isEmpty(password)) {

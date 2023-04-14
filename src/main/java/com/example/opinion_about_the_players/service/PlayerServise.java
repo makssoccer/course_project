@@ -33,8 +33,7 @@ public class PlayerServise {
     }
     @Transactional
     public boolean existsPlayer(Long id) {
-        Boolean is =playerRepository.existsById(id);
-        return is;
+        return playerRepository.existsById(id);
     }
     @Transactional
     public Model getInfoByPlayers(Long id, Model model) {
