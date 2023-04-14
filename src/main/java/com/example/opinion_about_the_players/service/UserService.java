@@ -1,7 +1,6 @@
 package com.example.opinion_about_the_players.service;
 
-import com.example.opinion_about_the_players.models.Role;
-import com.example.opinion_about_the_players.models.User;
+import com.example.opinion_about_the_players.models.*;
 import com.example.opinion_about_the_players.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +9,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -22,20 +23,30 @@ import java.util.stream.Collectors;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
 
+    @Transactional
     public Model getModelUsers(Model model) {
         List<User> users = userRepository.findAll();
         return model.addAttribute("users", users);
     }
-
+    public User findUser(User user) {
+        User userForm =userRepository.findByUsername(user.getUsername());
+        return userForm;
+    }
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username);
     }
-
+    @Transactional
     public List<User> findAll() {
         return userRepository.findAll();
     }
+    @Transactional
+    public void savePlayer(User user ) {
+        userRepository.save(user);
+    }
 
+    @Transactional
     public void saveUser(User user, String username, Boolean active, Map<String, String> form) {
         user.setUsername(username);
         Set<String> roles = Arrays.stream(Role.values()).map(Role::name).collect(Collectors.toSet());
@@ -49,11 +60,13 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
+    @Transactional
     public void userTurnOffActive(User user) {
         user.setActive(false);
         userRepository.save(user);
     }
 
+    @Transactional
     public void updateAccount(User user, String email, String password) {
         String userEmail = user.getEmail();
 
@@ -73,4 +86,10 @@ public class UserService implements UserDetailsService {
 
         userRepository.save(user);
     }
+    @Transactional
+    public void userDeleteOnBD(User user) {
+        userRepository.delete(user);
+    }
+
+
 }

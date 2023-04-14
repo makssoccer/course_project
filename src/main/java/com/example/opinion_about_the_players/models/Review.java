@@ -42,7 +42,6 @@ public class Review {
 
     public Review(Player player, User usr, String anons, String fullReview, LocalDateTime timePost) {
         this.player = player;
-//        this.coach = coach;
         this.usr = usr;
         this.anons = anons;
         this.fullReview = fullReview;

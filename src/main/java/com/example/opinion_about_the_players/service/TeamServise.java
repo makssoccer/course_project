@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,32 +17,38 @@ import java.util.Optional;
 public class TeamServise {
     private final TeamRepository teamRepository;
 
+    @Transactional
     public Model getModelTeams(Model model) {
         List<Team> teams = teamRepository.findAll();
         return model.addAttribute("teams", teams);
     }
-
+    @Transactional
+    public boolean existsTeam(Long id) {
+        Boolean is =teamRepository.existsById(id);
+        return is;
+    }
+    @Transactional
     public void saveTeam(String nameTeam, List<Tournament> tournament) {
         if (!nameTeam.isEmpty()) {
             Team team = new Team(nameTeam, tournament);
             teamRepository.save(team);
         }
     }
-
+    @Transactional
     public Model getInfoByTeams(Long id, Model model) {
         Optional<Team> team = teamRepository.findById(id);
         List<Team> resol = new ArrayList<>();
         team.ifPresent(resol::add);
         return model.addAttribute("team", resol);
     }
-
+    @Transactional
     public void editTeam(Long id, String nameTeam, List<Tournament> tournament) {
         Team team = teamRepository.findById(id).orElseThrow();
         team.setNameTeam(nameTeam);
         team.setTournament(tournament);
         teamRepository.save(team);
     }
-
+    @Transactional
     public void deleteTeamOnDB(Long id) {
         Team team = teamRepository.findById(id).orElseThrow();
         teamRepository.delete(team);

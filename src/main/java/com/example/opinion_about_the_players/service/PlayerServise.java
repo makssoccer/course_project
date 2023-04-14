@@ -21,16 +21,22 @@ public class PlayerServise {
     private final PlayerRepository playerRepository;
 
     //заполняем
+    @Transactional
     public Model getModelPlayers(Model model) {
         List<Player> players = playerRepository.findAll();
         return model.addAttribute("players", players);
     }
-
+    @Transactional
     public void savePlayer(String namePlayer, String nickname, String fullText, Team team, Country country) {
         Player player = new Player(namePlayer, nickname, fullText, team, country);
         playerRepository.save(player);
     }
-
+    @Transactional
+    public boolean existsPlayer(Long id) {
+        Boolean is =playerRepository.existsById(id);
+        return is;
+    }
+    @Transactional
     public Model getInfoByPlayers(Long id, Model model) {
 
         Optional<Player> player = playerRepository.findById(id);
@@ -38,11 +44,11 @@ public class PlayerServise {
         player.ifPresent(res::add);
         return model.addAttribute("player", res);
     }
-@Transactional
+    @Transactional
     public void editPlayerToDB(Long id, String name, String nickname, String fullText, Team team, Country country) {
         playerRepository.updatePlayer(name, nickname, fullText, team, country, id);
     }
-
+    @Transactional
     public void deletePlayerOnDB(Long id) {
         Player player = playerRepository.findById(id).orElseThrow();
         playerRepository.delete(player);

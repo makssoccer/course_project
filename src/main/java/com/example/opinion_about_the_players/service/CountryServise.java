@@ -14,12 +14,12 @@ import java.util.List;
 public class CountryServise {
 
     private final CountryRepository countryRepository;
-@Transactional
+    @Transactional
     public Model getModelCount(Model model) {
         List<Country> countries = countryRepository.findAll();
         return model.addAttribute("countries", countries);
     }
-
+    @Transactional
     public void saveCountry(String nameCountry) {
         if (!nameCountry.isEmpty()) {
             Country country = new Country(nameCountry);

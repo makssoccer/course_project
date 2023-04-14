@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @AllArgsConstructor
 public class PlayerController {
-    private final PlayerRepository playerRepository;
     private final PlayerServise playerServise;
     private final TeamServise teamServise;
     private final CountryServise countryServise;
@@ -56,7 +55,7 @@ public class PlayerController {
     //Страница конкретного Игрока
     @GetMapping("/players/{id}")
     public String playerDetails(@PathVariable(value = "id") Long id, Model model) {
-        if (!playerRepository.existsById(id)) {
+        if (!playerServise.existsPlayer(id)) {
             return "redirect:/players";
         }
         playerServise.getInfoByPlayers(id, model);
@@ -77,7 +76,7 @@ public class PlayerController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/players/{id}edit")
     public String playerEdit(@PathVariable(value = "id") Long id, Model model) {
-        if (!playerRepository.existsById(id)) {
+        if (!playerServise.existsPlayer(id))  {
             return "redirect:/players";
         }
         playerServise.getInfoByPlayers(id, model);

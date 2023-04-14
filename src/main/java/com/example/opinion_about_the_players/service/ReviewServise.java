@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -23,17 +24,17 @@ public class ReviewServise {
     private final ReviewRepositiry reviewRepository;
 
     private final PlayerRepository playerRepository;
-
+    @Transactional
     public Model getReviews(Model model) {
         List<Review> reviews = reviewRepository.findAll();
         return model.addAttribute("reviews", reviews);
     }
-
+    @Transactional
     public Model getModelReviews(Long id, Model model) {
         List<Review> reviews = reviewRepository.getByNameWithPlayer(id);
         return model.addAttribute("reviews", reviews);
     }
-
+    @Transactional
     public void saveRiviewsPlayer(String anons, String fullReviews, Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
