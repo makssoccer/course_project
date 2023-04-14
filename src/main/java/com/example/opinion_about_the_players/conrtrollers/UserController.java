@@ -20,7 +20,6 @@ import java.util.Map;
 @AllArgsConstructor
 @RequestMapping("/user")
 public class UserController {
-    private final UserRepository userRepository;
 
     private final UserService userService;
 
@@ -45,7 +44,7 @@ public class UserController {
     @PostMapping("/{user}/remove")
     public String userDelete(@PathVariable User user, Model model) {
         user.getRoles().clear();
-        userRepository.delete(user);
+        userService.userDeleteOnBD(user);
         model.addAttribute("user", user);
         return "redirect:/user";
     }

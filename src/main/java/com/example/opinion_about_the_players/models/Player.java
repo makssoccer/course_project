@@ -45,7 +45,6 @@ public class Player {
 
     public Player(String name, String nickname, String fullText, Team team, Country country) {
         this.name = name;
-//        this.dob=dob;
         this.nickname = nickname;
         this.fullText = fullText;
         this.team = team;

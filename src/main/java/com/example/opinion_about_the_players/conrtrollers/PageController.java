@@ -20,7 +20,6 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 public class PageController {
-    private final TeamRepository teamRepository;
     private final TeamServise teamServise;
     private final TournamentServise tournamentServise;
     private final CountryServise countryServise;
@@ -60,7 +59,7 @@ public class PageController {
     //Получаем информацию
     @GetMapping("/teams/{id}")
     public String teamDetails(@PathVariable(value = "id") Long id, Model model) {
-        if (!teamRepository.existsById(id)) {
+        if (!teamServise.existsTeam(id)) {
             return "redirect:/teams";
         }
         tournamentServise.getModelTournaments(model);
@@ -73,7 +72,7 @@ public class PageController {
                                   @RequestParam String nameTeam,
                                   @RequestParam List<Tournament> tournament,
                                   Model model) {
-        if (!teamRepository.existsById(id)) {
+        if (!teamServise.existsTeam(id)) {
             return "redirect:/teams";
         }
         teamServise.editTeam(id, nameTeam, tournament);
@@ -83,7 +82,7 @@ public class PageController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/teams/{id}edit")
     public String teamEdit(@PathVariable(value = "id") Long id, Model model) {
-        if (!teamRepository.existsById(id)) {
+        if (!teamServise.existsTeam(id)) {
             return "redirect:/teams";
         }
         tournamentServise.getModelTournaments(model);

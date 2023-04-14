@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -14,11 +15,13 @@ import java.util.List;
 public class TournamentServise {
     private final TournamentRepository tournamentRepository;
 
+    @Transactional
     public Model getModelTournaments(Model model) {
         List<Tournament> tournaments = tournamentRepository.findAll();
         return model.addAttribute("tournaments", tournaments);
     }
 
+    @Transactional
     public void saveTournament(String nameTournament, Country countries) {
         if (!nameTournament.isEmpty()) {
             Tournament tournament = new Tournament(nameTournament, countries);

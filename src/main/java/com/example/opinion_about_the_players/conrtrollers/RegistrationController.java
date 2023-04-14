@@ -4,6 +4,7 @@ package com.example.opinion_about_the_players.conrtrollers;
 import com.example.opinion_about_the_players.models.Role;
 import com.example.opinion_about_the_players.models.User;
 import com.example.opinion_about_the_players.repository.UserRepository;
+import com.example.opinion_about_the_players.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,7 @@ import java.util.Collections;
 @AllArgsConstructor
 public class RegistrationController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -33,7 +34,7 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String addUser(User user, Model model) {
-        User userFromdb = userRepository.findByUsername(user.getUsername());
+        User userFromdb = userService.findUser(user);
         if (userFromdb != null) {
             model.addAttribute("message", "User exists!");
             model.addAttribute("title", "Error login");
@@ -41,7 +42,7 @@ public class RegistrationController {
         }
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.ADMIN));
-        userRepository.save(user);
+        userService.savePlayer(user);
         model.addAttribute("message", "New account!");
         model.addAttribute("title", "New account");
         return "redirect:/login";
