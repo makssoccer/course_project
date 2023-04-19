@@ -28,12 +28,14 @@ public class TeamServise {
 
     }
     @Transactional
-    public void saveTeam(String nameTeam, List<Tournament> tournament) {
+    public void saveTeam(String nameTeam, List<Tournament> tournament, String urlTeam) {
         if (!nameTeam.isEmpty()) {
-            Team team = new Team(nameTeam, tournament);
+            Team team = new Team(nameTeam, tournament,urlTeam);
             teamRepository.save(team);
         }
     }
+
+
     @Transactional
     public Model getInfoByTeams(Long id, Model model) {
         Optional<Team> team = teamRepository.findById(id);
@@ -42,10 +44,13 @@ public class TeamServise {
         return model.addAttribute("team", resol);
     }
     @Transactional
-    public void editTeam(Long id, String nameTeam, List<Tournament> tournament) {
+    public void editTeam(Long id, String nameTeam, Tournament tournament,String urlTeam) {
         Team team = teamRepository.findById(id).orElseThrow();
         team.setNameTeam(nameTeam);
-        team.setTournament(tournament);
+        team.setUrlTeam(urlTeam);
+        if(!team.getTournament().contains(tournament)){
+        team.setTourn(tournament);
+        }
         teamRepository.save(team);
     }
     @Transactional

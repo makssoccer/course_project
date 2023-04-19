@@ -18,23 +18,19 @@
     <div sec:authorize="isAuthenticated()">
         Authenticated as <span sec:authentication="name"></span></div>
 
-    <div th:each="element : ${player}" class=""alert alert-info mt-2>
-        <img th:src="${element.urlPlayer}" width="400" height="500"  alt="...">
-        <h1 th:text="${element.name}"></h1>
-        <h3>Country</h3>
-        <div th:each="el : ${element.getCountry()}">
-            <p th:text="${el.nameCountry}">VALUE</p>
-        </div><br>
+    <div th:each="element : ${coach}" class=""alert alert-info mt-2>
+        <img th:src="${element.urlCoach}" width="400" height="500"  alt="...">
+        <h1 th:text="${element.nameCoach}"></h1>
         <h3>Team</h3>
         <div th:each="el : ${element.getTeam()}">
-            <a th:href="'/teams/' + ${el.id}" class="list-group-item list-group-item-action list-group-item-primary"   th:text="${el.nameTeam}" >VALUE</a>
+            <a th:href="'/coaches/' + ${el.id}" class="list-group-item list-group-item-action list-group-item-primary"   th:text="${el.nameTeam}" >VALUE</a>
         </div><br>
-        <p th:text="${element.fullText}"></p>
+        <p th:text="${element.descriptCoach}"></p>
 
 
 
-        <a th:href="'/players/' + ${element.id} + 'edit'" class="btn btn-warning">Редактировать</a><br><br>
-        <form th:action="'/players/' + ${element.id} + 'remove'" method="post">
+        <a th:href="'/coaches/' + ${element.id} + 'edit'" class="btn btn-warning">Редактировать</a><br><br>
+        <form th:action="'/coaches/' + ${element.id} + 'remove'" method="post">
             <button class="btn btn-warning" type="submit">Удалить</button><br><br>
 
             <div class="container-sm"
@@ -46,7 +42,7 @@
             </div><br>
         </form>
 
-        <form th:action="'/players/' + ${element.id}"  method="post">
+        <form th:action="'/coaches/' + ${element.id}"  method="post">
 
             <input type="text" name="anons" placeholder="Введите  заголовок обзора" class="form-control"><br>
             <textarea name="fullReview" placeholder="Введите ваше мнение об игроке" class="form-control"></textarea><br>

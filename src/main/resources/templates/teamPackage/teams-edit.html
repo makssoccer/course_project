@@ -14,7 +14,9 @@
 
     <form  method="post" >
       <input type="text" th:value="${element.nameTeam}" name="nameTeam" placeholder="Введите название клуба" class="form-control"><br>
-      <select name="tournament">
+      <input type="text" th:value="${element.urlTeam}" name="urlTeam" placeholder="Введите ссылку на Эмблему команды" class="form-control"><br>
+      <select name="tournament"  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <option selected value="">Open this select menu</option>
         <option th:each="el : ${tournaments}"
                 th:value="${el.id}"
                 th:text="${el.nameTournament}"></option>

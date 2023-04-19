@@ -25,6 +25,9 @@ public class Country {
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
     private List<Tournament> tournament;
 
+    @Column(name="urlCountry", length = 255)
+    private String urlCountry;
+
     public Country() {
     }
 

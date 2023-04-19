@@ -10,7 +10,8 @@
 <div class="container mt-5">
 
     <div th:each="element : ${team}" class=""alert alert-info mt-2>
-        <h1 th:text="${element.nameTeam}"></h1><br>
+        <h1 th:text="${element.nameTeam}"></h1>
+        <img th:src="${element.urlTeam}" width="189" height="231"  alt="..."><br><br>
 
         <h3>Tournament</h3>
 <div th:each="el : ${element.getTournament()}">
@@ -18,10 +19,28 @@
 </div><br>
 
         <h3>Players</h3>
-        <div th:each="el : ${element.getPlayers()}">
-            <p th:text="${el.name}">VALUE</p>
-<!--            <a th:href="'/players/' + ${el.id}"  th:text="${el.name}">VALUE</a>-->
-        </div><br>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div th:each="el : ${element.getPlayers()}" class=""alert alert-info mt-2><br>
+            <div class="card" style="width: 18rem;">
+                <img th:src="${el.urlPlayer}"  width="150" height="280" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"  th:text="${el.nickname}"></h5>
+                    <p class="card-text" th:text="${el.name}"></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <div th:each="el : ${el.getCountry()}">
+                        <div class="list-group-item list-group-item-action list-group-item-primary">
+                        <img th:src="${el.urlCountry}" width="39" height="29"  alt="...">
+                        <a href="#"   th:text="${el.nameCountry}" >VALUE</a>
+                    </div>
+                    </div>
+                </ul>
+                <div class="card-body">
+                    <a th:href="'/players/' + ${el.id}" class="btn btn-warning">Детальнее</a>
+                </div>
+            </div>
+        </div>
+        </div> <br>
         <a th:href="'/teams/' + ${element.id} + 'edit'" class="btn btn-warning">Редактировать</a><br><br>
         <form th:action="'/teams/' + ${element.id} + 'remove'" method="post">
 

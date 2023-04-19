@@ -12,9 +12,11 @@
     <div th:each="element : ${player}" >
         <form  method="post" >
             <input type="text" th:value="${element.name}" name="name" placeholder="Введите название статьи" class="form-control"><br>
+            <input type="text" th:value="${element.urlPlayer}" name="urlPlayer" placeholder="Введите ссылку на фото игрока" class="form-control"><br>
             <input type="text" th:value="${element.nickname}" name="nickname" placeholder="В ведите прозвище" class="form-control"><br>
             <textarea name="fullText"  placeholder="Введите полный текст статьи" class="form-control" th:text="${element.fullText}" /><br>
             <select name="team">
+                <option selected value="">Open this select menu</option>
                 <option th:each="element : ${teams}"
                         th:value="${element.id}"
                         th:text="${element.nameTeam}">Wireframe</option>

@@ -49,10 +49,11 @@ public class PageController {
                               @RequestParam(value = "country", required = false) Country country,
                               @RequestParam(value = "nameCountry", required = false) String nameCountry,
                               @RequestParam(value = "nameTournament", required = false) String nameTournament,
+                              @RequestParam(value = "urlTeam", required = false) String urlTeam,
                               Model model) {
         tournamentServise.saveTournament(nameTournament, country);
         countryServise.saveCountry(nameCountry);
-        teamServise.saveTeam(nameTeam, tournament);
+        teamServise.saveTeam(nameTeam, tournament,urlTeam);
         return "redirect:/teams";
     }
 
@@ -67,17 +68,6 @@ public class PageController {
         return "teamPackage/teams-details";
     }
 
-    @PostMapping("/teams/{id}")
-    public String teamPostDetails(@PathVariable(value = "id") Long id,
-                                  @RequestParam String nameTeam,
-                                  @RequestParam List<Tournament> tournament,
-                                  Model model) {
-        if (!teamServise.existsTeam(id)) {
-            return "redirect:/teams";
-        }
-        teamServise.editTeam(id, nameTeam, tournament);
-        return "redirect:/teams-details";
-    }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/teams/{id}edit")
@@ -94,9 +84,10 @@ public class PageController {
     @PostMapping("/teams/{id}edit")
     public String teamPostUbdate(@PathVariable(value = "id") Long id,
                                  @RequestParam String nameTeam,
-                                 @RequestParam List<Tournament> tournament,
+                                 @RequestParam Tournament tournament,
+                                 @RequestParam(value = "urlTeam", required = false) String urlTeam,
                                  Model model) {
-        teamServise.editTeam(id, nameTeam, tournament);
+        teamServise.editTeam(id, nameTeam, tournament,urlTeam);
         return "redirect:/teams";
     }
 

@@ -27,8 +27,8 @@ public class PlayerServise {
         return model.addAttribute("players", players);
     }
     @Transactional
-    public void savePlayer(String namePlayer, String nickname, String fullText, Team team, Country country) {
-        Player player = new Player(namePlayer, nickname, fullText, team, country);
+    public void savePlayer(String namePlayer, String nickname, String fullText, Team team, Country country, String urlPucture) {
+        Player player = new Player(namePlayer, nickname, fullText, team, country, urlPucture);
         playerRepository.save(player);
     }
     @Transactional
@@ -44,8 +44,8 @@ public class PlayerServise {
         return model.addAttribute("player", res);
     }
     @Transactional
-    public void editPlayerToDB(Long id, String name, String nickname, String fullText, Team team, Country country) {
-        playerRepository.updatePlayer(name, nickname, fullText, team, country, id);
+    public void editPlayerToDB(Long id, String name, String nickname, String fullText, Team team, Country country, String urlPlayer) {
+        playerRepository.updatePlayer(name, nickname, fullText, team, country, urlPlayer, id);
     }
     @Transactional
     public void deletePlayerOnDB(Long id) {

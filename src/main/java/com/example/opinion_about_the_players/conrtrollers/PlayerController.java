@@ -2,7 +2,6 @@ package com.example.opinion_about_the_players.conrtrollers;
 
 import com.example.opinion_about_the_players.models.Team;
 import com.example.opinion_about_the_players.models.Country;
-import com.example.opinion_about_the_players.repository.PlayerRepository;
 import com.example.opinion_about_the_players.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -47,8 +46,9 @@ public class PlayerController {
                                 @RequestParam String fullText,
                                 @RequestParam(value = "team", required = false) Team team,
                                 @RequestParam(value = "country", required = false) Country country,
+                                @RequestParam(value = "urlPlayer", required = false) String urlPlayer,
                                 Model model) {
-        playerServise.savePlayer(name, nickname, fullText, team, country);
+        playerServise.savePlayer(name, nickname, fullText, team, country, urlPlayer);
         return "redirect:/players";
     }
 
@@ -68,7 +68,7 @@ public class PlayerController {
                                    @RequestParam String anons,
                                    @RequestParam String fullReview,
                                    Model model) {
-        reviewServise.saveRiviewsPlayer(anons, fullReview, id);
+        reviewServise.saveReviewsPlayer(anons, fullReview, id);
         return "redirect:/players";
     }
 
@@ -94,8 +94,9 @@ public class PlayerController {
                                    @RequestParam(value = "country", required = false) Country country,
                                    @RequestParam String nickname,
                                    @RequestParam String fullText,
+                                   @RequestParam(value = "urlPlayer", required = false) String urlPlayer,
                                    Model model) {
-        playerServise.editPlayerToDB(id, name, nickname, fullText, team, country);
+        playerServise.editPlayerToDB(id, name, nickname, fullText, team, country, urlPlayer);
         return "redirect:/players";
     }
 

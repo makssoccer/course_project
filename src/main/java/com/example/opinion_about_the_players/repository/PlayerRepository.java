@@ -20,12 +20,13 @@ public interface PlayerRepository extends JpaRepository<Player,Long> {
 
     @Modifying
     @Query("update Player p set  p.name = :name, p.nickname = :nickname, p.fullText = :fullText, " +
-            "p.team = :team, p.country = :country where p.id = :id")
+            "p.team = :team, p.country = :country, p.urlPlayer = :urlPlayer   where p.id = :id")
     void updatePlayer(@Param("name")String name,
                       @Param("nickname")String nickname,
                       @Param("fullText")String fullText,
                       @Param("team")Team team,
                       @Param("country")Country country,
+                      @Param("urlPlayer") String urlPlayer,
                       @Param("id") Long id);
     Player findByCountryAndNicknameAndName(Country country, String nik, String name);
 }

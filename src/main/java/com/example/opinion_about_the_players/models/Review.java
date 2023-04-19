@@ -47,4 +47,12 @@ public class Review {
         this.fullReview = fullReview;
         this.timePost = timePost;
     }
+    public Review(Coach coach, User usr, String anons, String fullReview, LocalDateTime timePost) {
+        this.coach = coach;
+        this.usr = usr;
+        this.anons = anons;
+        this.fullReview = fullReview;
+        this.timePost = timePost;
+    }
+
 }

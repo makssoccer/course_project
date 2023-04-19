@@ -11,4 +11,8 @@ public interface ReviewRepositiry extends JpaRepository<Review, Long> {
     @EntityGraph(attributePaths = "player")
     @Query("select r from Review r where r.id = ?1")
     List<Review> getByNameWithPlayer(Long id);
+
+    @EntityGraph(attributePaths = "coach")
+    @Query("select r from Review r where r.id = ?1")
+    List<Review> getByNameWithCoach(Long id);
 }

@@ -7,14 +7,17 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header "></header>
+
 <div class="container mt-5">
     <h1>Клубы</h1>
-    <div th:each="element : ${teams}" class=""alert alert-info mt-2><br>
-        <h3 th:text="${element.nameTeam}"></h3>
-        <a th:href="'/teams/' + ${element.id}" class="btn btn-warning">Детальнее</a>
-<!--        <a th:href="'/players/' + ${element.id}" class="btn btn-warning">Детальнее</a>-->
-    </div>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <div th:each="element : ${teams}" class="alert alert-light" ><br>
 
+        <h3  th:text="${element.nameTeam}"></h3>
+        <p> <a th:href="'/teams/' + ${element.id}" ><img  th:src="${element.urlTeam}" width="139" height="181"  alt="..."></a></p>
+
+    </div>
+</div>
 </div>
 
 
