@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -33,11 +34,23 @@ public class Team {
         return tournament;
     }
 
+    private Boolean isConfirmed;
+
     private String nameTeam;
 
     @Column(name="urlTeam", length = 255)
     private String urlTeam;
     public Team() {
+    }
+
+    public List<Player> getPlayers() {
+        List<Player> isConfir = new ArrayList<>();
+        for(Player player : this.players ){
+            if(player.getIsConfirmed()){
+                isConfir.add(player);
+            }
+        }
+        return isConfir;
     }
 
     public void setTourn(Tournament tournament) {
@@ -50,8 +63,7 @@ public class Team {
     public Team(String nameTeam, List<Tournament> tournament, String urlTeam) {
         this.nameTeam = nameTeam;
         this.tournament = tournament;
-        this.urlTeam =urlTeam;
+        this.urlTeam = urlTeam;
+        this.isConfirmed = false;
     }
-
-
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <title>Редактирование статьи</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -26,6 +27,9 @@
             <!--            </div>-->
             <button type="submit" class="btn btn-success">Обновить</button>
         </form>
+        <form sec:authorize="hasAuthority('ADMIN')" th:action="'/coaches/' + ${element.id} + 'remove'" method="post">
+            <button class="btn btn-warning" type="submit">Удалить</button>
+            </form>
     </div>
 </div>
 <div th:insert="blocks/footer :: footer "></div>

@@ -37,6 +37,8 @@ public class Coach {
     @Column(name="urlCoach", length = 255)
     private String urlCoach;
 
+    private Boolean isConfirmed;
+
     public Coach() {
     }
 
@@ -46,6 +48,7 @@ public class Coach {
         this.descriptCoach = descriptCoach;
         this.team = team;
         this.urlCoach = urlCoach;
+        this.isConfirmed = false;
     }
 
 }

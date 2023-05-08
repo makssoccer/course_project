@@ -15,10 +15,14 @@
 <body>
 <header th:insert="blocks/header :: header "></header>
 <div class="container mt-5">
-    <div sec:authorize="isAuthenticated()">
-        Authenticated as <span sec:authentication="name"></span></div>
 
     <div th:each="element : ${coach}" class=""alert alert-info mt-2>
+        <div th:if="${element.isConfirmed}">
+            <h1 class="text-success">Этот Тренер верифицирован администрацией сайта</h1>
+        </div>
+        <div th:unless="${element.isConfirmed}">
+            <h1 class="text-danger">Этот Тренер НЕверифицирован администрацией сайта</h1>
+        </div>
         <img th:src="${element.urlCoach}" width="400" height="500"  alt="...">
         <h1 th:text="${element.nameCoach}"></h1>
         <h3>Team</h3>
@@ -30,9 +34,6 @@
 
 
         <a th:href="'/coaches/' + ${element.id} + 'edit'" class="btn btn-warning">Редактировать</a><br><br>
-        <form th:action="'/coaches/' + ${element.id} + 'remove'" method="post">
-            <button class="btn btn-warning" type="submit">Удалить</button><br><br>
-
             <div class="container-sm"
                  th:each="el : ${element.getReviews()}">
                 <div th:each="e : ${el.getUsr()}">
@@ -40,13 +41,16 @@
                 <h3 name="jir" th:text="${el.getAnons()}">VALUE</h3>
                 <p th:text="${el.getFullReview()}">VALUE</p>
             </div><br>
-        </form>
+
 
         <form th:action="'/coaches/' + ${element.id}"  method="post">
 
             <input type="text" name="anons" placeholder="Введите  заголовок обзора" class="form-control"><br>
             <textarea name="fullReview" placeholder="Введите ваше мнение об игроке" class="form-control"></textarea><br>
             <button type="submit" class="btn btn-success">Добавить Отзыв</button>
+        </form>
+        <form sec:authorize="hasAuthority('ADMIN')" th:action="'/coaches/' + ${element.id} + 'remove'" method="post">
+            <button class="btn btn-warning" type="submit">Удалить</button>
         </form>
 
     </div>

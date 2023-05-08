@@ -42,16 +42,26 @@ public class Player {
     @Column(name="urlPlayer", length = 255)
     private String urlPlayer;
 
+    private Boolean isConfirmed;
+
+    public void confirm() {
+        this.isConfirmed=true;
+    }
+    private void cancelСonfirm() {
+        this.isConfirmed=false;
+    }
+
     public Player() {
     }
 
-    public Player(String name, String nickname, String fullText, Team team, Country country, String urlPlayer) {
+    public Player(String name, String nickname, String fullText, Team team, Country country, String urlPlayer, Boolean isConfirmed) {
         this.name = name;
         this.nickname = nickname;
         this.fullText = fullText;
         this.team = team;
         this.country = country;
         this.urlPlayer = urlPlayer;
+        this.isConfirmed = isConfirmed;
     }
 
 }

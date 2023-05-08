@@ -2,7 +2,6 @@ package com.example.opinion_about_the_players.conrtrollers;
 
 import com.example.opinion_about_the_players.models.Country;
 import com.example.opinion_about_the_players.models.Tournament;
-import com.example.opinion_about_the_players.repository.TeamRepository;
 import com.example.opinion_about_the_players.service.TeamServise;
 import com.example.opinion_about_the_players.service.CountryServise;
 import com.example.opinion_about_the_players.service.TournamentServise;
@@ -38,7 +37,10 @@ public class PageController {
     public String teamAdd(Model model) {
         tournamentServise.getModelTournaments(model);
         countryServise.getModelCount(model);
+//        парсинг Стран
+//        countryServise.Scrape();
         return "teamPackage/teams-add";
+
     }
 
     //Добавление клуба, лиги и страну
@@ -49,8 +51,7 @@ public class PageController {
                               @RequestParam(value = "country", required = false) Country country,
                               @RequestParam(value = "nameCountry", required = false) String nameCountry,
                               @RequestParam(value = "nameTournament", required = false) String nameTournament,
-                              @RequestParam(value = "urlTeam", required = false) String urlTeam,
-                              Model model) {
+                              @RequestParam(value = "urlTeam", required = false) String urlTeam) {
         tournamentServise.saveTournament(nameTournament, country);
         countryServise.saveCountry(nameCountry);
         teamServise.saveTeam(nameTeam, tournament,urlTeam);
@@ -58,6 +59,7 @@ public class PageController {
     }
 
     //Получаем информацию
+
     @GetMapping("/teams/{id}")
     public String teamDetails(@PathVariable(value = "id") Long id, Model model) {
         if (!teamServise.existsTeam(id)) {
@@ -67,8 +69,6 @@ public class PageController {
         teamServise.getInfoByTeams(id, model);
         return "teamPackage/teams-details";
     }
-
-
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/teams/{id}edit")
     public String teamEdit(@PathVariable(value = "id") Long id, Model model) {
@@ -79,21 +79,19 @@ public class PageController {
         teamServise.getInfoByTeams(id, model);
         return "teamPackage/teams-edit";
     }
-
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/teams/{id}edit")
     public String teamPostUbdate(@PathVariable(value = "id") Long id,
                                  @RequestParam String nameTeam,
                                  @RequestParam Tournament tournament,
-                                 @RequestParam(value = "urlTeam", required = false) String urlTeam,
-                                 Model model) {
+                                 @RequestParam(value = "urlTeam", required = false) String urlTeam) {
         teamServise.editTeam(id, nameTeam, tournament,urlTeam);
         return "redirect:/teams";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/teams/{id}remove")
-    public String teamPostDelete(@PathVariable(value = "id") Long id, Model model) {
+    public String teamPostDelete(@PathVariable(value = "id") Long id) {
         teamServise.deleteTeamOnDB(id);
         return "redirect:/teams";
     }

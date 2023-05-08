@@ -46,6 +46,14 @@ public class ReviewServise {
         Review review = new Review(player, user, anons, fullReviews, current);
         reviewRepository.save(review);
     }
+    @Transactional
+    public void newSaveReviewsPlayer(String anons, String fullReviews, Player player) {
+        User user = getUserSession();
+        LocalDateTime current = LocalDateTime.of(LocalDate.now(), LocalTime.now());
+        Review review = new Review(player, user, anons, fullReviews, current);
+        reviewRepository.save(review);
+    }
+
 
     @Transactional
     public void saveReviewsCoach(String anons, String fullReviews, Long id) {

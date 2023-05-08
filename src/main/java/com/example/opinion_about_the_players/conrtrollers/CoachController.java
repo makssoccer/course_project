@@ -30,7 +30,7 @@ public class CoachController {
         return "coachPackage/coaches";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     @GetMapping("/coaches/add")
     public String coachAdd(Model model) {
         teamServise.getModelTeams(model);
@@ -40,13 +40,12 @@ public class CoachController {
     }
 
     //create coach
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     @PostMapping("/coaches/add")
     public String coachPostAdd(@RequestParam String nameCoach,
                                 @RequestParam String descriptCoach,
                                 @RequestParam(value = "team", required = false) Team team,
-                                @RequestParam(value = "urlCoach", required = false) String urlCoach,
-                                Model model) {
+                                @RequestParam(value = "urlCoach", required = false) String urlCoach) {
         coachServise.saveCoach(nameCoach,  descriptCoach, team, urlCoach);
         return "redirect:/coaches";
     }
@@ -65,14 +64,13 @@ public class CoachController {
     @PostMapping("/coaches/{id}")
     public String coachPostReview(@PathVariable(value = "id") Long id,
                                    @RequestParam String anons,
-                                   @RequestParam String fullReview,
-                                   Model model) {
+                                   @RequestParam String fullReview) {
         reviewServise.saveReviewsCoach(anons, fullReview, id);
         return "redirect:/coaches";
     }
 
     //Получение данных об Игроке для его дальнейшего редактирования
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     @GetMapping("/coaches/{id}edit")
     public String coachEdit(@PathVariable(value = "id") Long id, Model model) {
         if (!coachServise.existsCoach(id))  {
@@ -84,14 +82,13 @@ public class CoachController {
     }
 
     //Редактирование данных Тренера
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     @PostMapping("/coaches/{id}edit")
     public String coachPostUbdate(@PathVariable(value = "id") Long id,
                                   @RequestParam String nameCoach,
                                   @RequestParam String descriptCoach,
                                   @RequestParam(value = "team", required = false) Team team,
-                                  @RequestParam(value = "urlCoach", required = false) String urlCoach,
-                                   Model model) {
+                                  @RequestParam(value = "urlCoach", required = false) String urlCoach) {
         coachServise.editCoachToDB(id, nameCoach, descriptCoach, team,  urlCoach);
         return "redirect:/coaches";
     }
@@ -99,7 +96,7 @@ public class CoachController {
     //Удаление Тренера
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/coaches/{id}remove")
-    public String coachPostDelete(@PathVariable(value = "id") Long id, Model model) {
+    public String coachPostDelete(@PathVariable(value = "id") Long id) {
         coachServise.deleteСoachOnDB(id);
         return "redirect:/coaches";
     }

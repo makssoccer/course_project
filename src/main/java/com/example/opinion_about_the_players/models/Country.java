@@ -34,4 +34,9 @@ public class Country {
     public Country(String nameCountry) {
         this.nameCountry = nameCountry;
     }
+    public Country(String nameCountry, String urlCountry) {
+        this.nameCountry = nameCountry;
+        this.urlCountry= urlCountry;
+    }
+
 }

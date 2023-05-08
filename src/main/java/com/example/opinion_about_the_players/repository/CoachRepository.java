@@ -10,7 +10,14 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface CoachRepository extends JpaRepository<Coach,Long> {
+
+    @Query("select c from Coach c where c.isConfirmed = true")
+    List<Coach> getConfirmedCoaches();
+    @Query("select c from Coach c where c.isConfirmed = false ")
+    List<Coach> getNoConfirmedCoaches();
     @EntityGraph(attributePaths = {"reviews"})
     @Query("select c from Coach c where c.id = ?1")
     Coach getCoachW(long id);

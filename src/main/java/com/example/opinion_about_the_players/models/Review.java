@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Setter
 @Getter
 @Entity
@@ -27,6 +29,9 @@ public class Review {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User usr;
+
+    @OneToMany(mappedBy = "review", fetch = FetchType.LAZY)
+    private List<Commentary> commentaries ;
 
     @Column(name = "anons")
     private String anons;

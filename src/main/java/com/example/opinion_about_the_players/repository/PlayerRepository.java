@@ -10,8 +10,16 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 
 public interface PlayerRepository extends JpaRepository<Player,Long> {
+
+    @Query("select p from Player p where p.isConfirmed = true")
+    List<Player> getConfirmedPlayers();
+
+    @Query("select p from Player p where p.isConfirmed != true")
+    List<Player> getNoConfirmedPlayers();
 
     @EntityGraph(attributePaths = {"country", "reviews"})
     @Query("select p from Player p where p.id = ?1")
@@ -20,13 +28,16 @@ public interface PlayerRepository extends JpaRepository<Player,Long> {
 
     @Modifying
     @Query("update Player p set  p.name = :name, p.nickname = :nickname, p.fullText = :fullText, " +
-            "p.team = :team, p.country = :country, p.urlPlayer = :urlPlayer   where p.id = :id")
+            "p.team = :team, p.country = :country, p.urlPlayer = :urlPlayer, p.isConfirmed = :isConfirmed  where p.id = :id")
     void updatePlayer(@Param("name")String name,
                       @Param("nickname")String nickname,
                       @Param("fullText")String fullText,
                       @Param("team")Team team,
                       @Param("country")Country country,
                       @Param("urlPlayer") String urlPlayer,
+                      @Param("isConfirmed") Boolean isConfirmed,
                       @Param("id") Long id);
+
+
     Player findByCountryAndNicknameAndName(Country country, String nik, String name);
 }

@@ -13,11 +13,11 @@
   Authenticated as <span sec:authentication="name"></span></div>
 
 <div class="container mt-5">
-  <h1>Футболисты</h1>
+  <h1>Тренеры</h1>
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <div th:each="element : ${coaches}" class=""alert alert-info mt-2><br>
       <div class="card" style="width: 18rem;">
-        <img th:src="${element.urlCoach}" width="150" height="280" class="card-img-top" alt="...">
+        <p> <a th:href="'/coaches/' + ${element.id}" ><img th:src="${element.urlCoach}" width="150" height="280" class="card-img-top" alt="..."></a></p>
         <div class="card-body">
           <p class="card-text" th:text="${element.nameCoach}"></p>
         </div>

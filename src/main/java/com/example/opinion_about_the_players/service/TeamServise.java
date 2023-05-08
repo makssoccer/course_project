@@ -19,7 +19,13 @@ public class TeamServise {
 
     @Transactional
     public Model getModelTeams(Model model) {
-        List<Team> teams = teamRepository.findAll();
+        List<Team> teams = teamRepository.getConfirmedTeams();
+        return model.addAttribute("teams", teams);
+    }
+
+    @Transactional
+    public Model getNoApproveTeams(Model model) {
+        List<Team> teams = teamRepository.getNoConfirmedTeams();
         return model.addAttribute("teams", teams);
     }
     @Transactional

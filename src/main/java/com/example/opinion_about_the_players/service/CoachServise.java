@@ -1,10 +1,10 @@
 package com.example.opinion_about_the_players.service;
 
+import com.example.opinion_about_the_players.models.Player;
 import com.example.opinion_about_the_players.models.Team;
 import com.example.opinion_about_the_players.models.Coach;
 import com.example.opinion_about_the_players.repository.CoachRepository;
 import lombok.AllArgsConstructor;
-import lombok.ToString;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -19,10 +19,14 @@ public class CoachServise {
 
     private final CoachRepository coachRepository;
 
-    //заполняем
     @Transactional
     public Model getModelCoaches(Model model) {
-        List<Coach> coaches = coachRepository.findAll();
+        List<Coach> coaches = coachRepository.getConfirmedCoaches();
+        return model.addAttribute("coaches", coaches);
+    }
+    @Transactional
+    public Model getNoApproveCoaches(Model model) {
+        List<Coach> coaches = coachRepository.getNoConfirmedCoaches();
         return model.addAttribute("coaches", coaches);
     }
     @Transactional

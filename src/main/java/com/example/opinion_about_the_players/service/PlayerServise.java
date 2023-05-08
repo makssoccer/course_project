@@ -5,7 +5,6 @@ import com.example.opinion_about_the_players.models.Country;
 import com.example.opinion_about_the_players.models.Player;
 import com.example.opinion_about_the_players.repository.PlayerRepository;
 import lombok.AllArgsConstructor;
-import lombok.ToString;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -23,12 +22,17 @@ public class PlayerServise {
     //заполняем
     @Transactional
     public Model getModelPlayers(Model model) {
-        List<Player> players = playerRepository.findAll();
+        List<Player> players = playerRepository.getConfirmedPlayers();
         return model.addAttribute("players", players);
     }
     @Transactional
-    public void savePlayer(String namePlayer, String nickname, String fullText, Team team, Country country, String urlPucture) {
-        Player player = new Player(namePlayer, nickname, fullText, team, country, urlPucture);
+    public Model getNoApprovePlayers(Model model) {
+        List<Player> players = playerRepository.getNoConfirmedPlayers();
+        return model.addAttribute("players", players);
+    }
+    @Transactional
+    public void savePlayer(String namePlayer, String nickname, String fullText, Team team, Country country, String urlPucture, Boolean isConfirmed) {
+        Player player = new Player(namePlayer, nickname, fullText, team, country, urlPucture, isConfirmed);
         playerRepository.save(player);
     }
     @Transactional
@@ -44,8 +48,8 @@ public class PlayerServise {
         return model.addAttribute("player", res);
     }
     @Transactional
-    public void editPlayerToDB(Long id, String name, String nickname, String fullText, Team team, Country country, String urlPlayer) {
-        playerRepository.updatePlayer(name, nickname, fullText, team, country, urlPlayer, id);
+    public void editPlayerToDB(Long id, String name, String nickname, String fullText, Team team, Country country, String urlPlayer, Boolean isConfirmed) {
+        playerRepository.updatePlayer(name, nickname, fullText, team, country, urlPlayer, isConfirmed, id);
     }
     @Transactional
     public void deletePlayerOnDB(Long id) {
