@@ -1,10 +1,8 @@
 package com.example.opinion_about_the_players.service;
 
-import com.example.opinion_about_the_players.models.Coach;
-import com.example.opinion_about_the_players.models.Player;
-import com.example.opinion_about_the_players.models.Review;
-import com.example.opinion_about_the_players.models.User;
+import com.example.opinion_about_the_players.models.*;
 import com.example.opinion_about_the_players.repository.CoachRepository;
+import com.example.opinion_about_the_players.repository.CommentaryRepository;
 import com.example.opinion_about_the_players.repository.PlayerRepository;
 import com.example.opinion_about_the_players.repository.ReviewRepositiry;
 import lombok.AllArgsConstructor;
@@ -28,6 +26,7 @@ public class ReviewServise {
     private final PlayerRepository playerRepository;
 
     private final CoachRepository coachRepository;
+    private final CommentaryRepository commentaryRepository;
     @Transactional
     public Model getReviews(Model model) {
         List<Review> reviews = reviewRepository.findAll();
@@ -53,6 +52,14 @@ public class ReviewServise {
         Review review = new Review(player, user, anons, fullReviews, current);
         reviewRepository.save(review);
     }
+    @Transactional
+    public void saveCommentReviews(Long id, String userComment) {
+        User user = getUserSession();
+        Review review = reviewRepository.getReviewById(id);
+        LocalDateTime current = LocalDateTime.of(LocalDate.now(), LocalTime.now());
+        Commentary commentary = new Commentary(review, user, userComment, current);
+        commentaryRepository.save(commentary);
+    }
 
 
     @Transactional
@@ -62,6 +69,7 @@ public class ReviewServise {
         Coach coach = coachRepository.getCoachW(id);
         Review review = new Review(coach, user, anons, fullReviews, current);
         reviewRepository.save(review);
+
     }
 
     private User getUserSession() {

@@ -59,7 +59,27 @@
                     <p th:text="${e.username}">VALUE</p></div>
                 <h3 name="jir" th:text="${el.getAnons()}">VALUE</h3>
                 <p th:text="${el.getFullReview()}">VALUE</p>
+                <div class="container-sm"
+                     th:each="ele : ${el.getCommentaries()}">
+                    <div th:each="el : ${ele.getUsr()}">
+                        <p th:text="${el.username}">VALUE</p></div>
+                    <h3  th:text="${ele.userComment}">VALUE</h3>
+                </div>
+
+                <form  action="#" th:action="@{/commentary}" method="post">
+
+                    <input name="review" th:value="${el.id}" hidden>
+
+                    <textarea name="userComment" placeholder="Введите ваше мнение об игроке" class="form-control"></textarea><br>
+                    <button type="submit" class="btn btn-success">Добавить Отзыв</button>
+                </form>
+
+
+
             </div><br>
+
+
+
 
         <form sec:authorize="hasAuthority('ADMIN')" th:action="'/players/' + ${element.id} + 'remove'" method="post">
             <button class="btn btn-warning" type="submit">Удалить</button>

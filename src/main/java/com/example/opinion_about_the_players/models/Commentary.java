@@ -14,8 +14,8 @@ public class Commentary {
 
 
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        private long id;
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
 
         //connection with review
         @ManyToOne(fetch = FetchType.LAZY)
@@ -33,6 +33,7 @@ public class Commentary {
 
         @Column(name = "timePost")
         private LocalDateTime timePost;
+
 
         public Commentary() {
         }

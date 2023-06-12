@@ -2,6 +2,7 @@ package com.example.opinion_about_the_players.conrtrollers;
 
 import com.example.opinion_about_the_players.models.Country;
 import com.example.opinion_about_the_players.models.Player;
+import com.example.opinion_about_the_players.models.Review;
 import com.example.opinion_about_the_players.models.Team;
 import com.example.opinion_about_the_players.service.*;
 import lombok.AllArgsConstructor;
@@ -59,4 +60,15 @@ public class ReviewController {
         reviewServise.newSaveReviewsPlayer(anons, fullReview, player);
         return "redirect:/review";
     }
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    @PostMapping("/commentary")
+    public String playerPostAdd(@RequestParam(value = "review") Long review,
+                                @RequestParam String userComment) {
+        reviewServise.saveCommentReviews(review , userComment);
+        return "playerPackage/players";
+    }
+
+
+
+
 }

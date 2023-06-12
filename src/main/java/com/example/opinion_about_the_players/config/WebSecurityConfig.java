@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/registration", "/teams", "/teams/{id}","/players", "/players/{id}",
                              "/main", "/coaches", "/coaches/{id}").permitAll()
-                .antMatchers("/players/add", "/players/{id}edit","/review","/coaches/add").hasAuthority(Role.USER.getAuthority())
+                .antMatchers("/players/add", "/players/{id}edit","/review","/coaches/add","/commentary").hasAuthority(Role.USER.getAuthority())
                 .antMatchers("/**").hasAuthority(Role.ADMIN.getAuthority())
                 .anyRequest().authenticated()
                 .and()

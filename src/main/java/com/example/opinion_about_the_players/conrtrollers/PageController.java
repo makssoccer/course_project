@@ -38,7 +38,7 @@ public class PageController {
         tournamentServise.getModelTournaments(model);
         countryServise.getModelCount(model);
 //        парсинг Стран
-//        countryServise.Scrape();
+        countryServise.Scrape();
         return "teamPackage/teams-add";
 
     }

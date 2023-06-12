@@ -10,12 +10,11 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "coach")
-public class Coach {
+public class Coach  {
 
-    @Setter
-    @Getter
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //connection with club
@@ -41,7 +40,7 @@ public class Coach {
 
     public Coach() {
     }
-
+    public void info(){};
     public Coach(String nameCoach, String descriptCoach, Team team, String urlCoach) {
         this.nameCoach = nameCoach;
 //        this.dob = dob;

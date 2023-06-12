@@ -14,8 +14,8 @@ import java.util.List;
 public class Review {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     //connection with player
     @ManyToOne(fetch = FetchType.LAZY)
@@ -41,6 +41,11 @@ public class Review {
 
     @Column(name = "timePost")
     private LocalDateTime timePost;
+
+
+    public List<Commentary> getCommentaries() {
+        return commentaries;
+    }
 
     public Review() {
     }

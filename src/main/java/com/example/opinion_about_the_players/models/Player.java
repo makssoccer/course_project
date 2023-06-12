@@ -14,7 +14,7 @@ import java.util.List;
 public class Player {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //connection with country
@@ -53,7 +53,7 @@ public class Player {
 
     public Player() {
     }
-
+    public void info(){};
     public Player(String name, String nickname, String fullText, Team team, Country country, String urlPlayer, Boolean isConfirmed) {
         this.name = name;
         this.nickname = nickname;
