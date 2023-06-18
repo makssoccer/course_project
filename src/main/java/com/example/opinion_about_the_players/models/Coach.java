@@ -41,13 +41,13 @@ public class Coach  {
     public Coach() {
     }
     public void info(){};
-    public Coach(String nameCoach, String descriptCoach, Team team, String urlCoach) {
+    public Coach(String nameCoach, String descriptCoach, Team team, String urlCoach, Boolean isConfirmed) {
         this.nameCoach = nameCoach;
 //        this.dob = dob;
         this.descriptCoach = descriptCoach;
         this.team = team;
         this.urlCoach = urlCoach;
-        this.isConfirmed = false;
+        this.isConfirmed = isConfirmed;
     }
 
 }

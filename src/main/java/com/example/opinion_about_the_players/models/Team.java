@@ -60,10 +60,10 @@ public class Team {
         this.tournament.remove((Tournament) tournament);
     }
 
-    public Team(String nameTeam, List<Tournament> tournament, String urlTeam) {
+    public Team(String nameTeam, List<Tournament> tournament, String urlTeam, Boolean isConfirmed) {
         this.nameTeam = nameTeam;
         this.tournament = tournament;
         this.urlTeam = urlTeam;
-        this.isConfirmed = false;
+        this.isConfirmed = isConfirmed;
     }
 }

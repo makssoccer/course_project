@@ -7,6 +7,7 @@ import com.example.opinion_about_the_players.repository.CoachRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -30,8 +31,8 @@ public class CoachServise {
         return model.addAttribute("coaches", coaches);
     }
     @Transactional
-    public void saveCoach(String nameCoach, String descriptCoach, Team team, String urlCoach) {
-        Coach coach = new Coach(nameCoach, descriptCoach, team, urlCoach);
+    public void saveCoach(String nameCoach, String descriptCoach, Team team, String urlCoach, Boolean isConfirmed) {
+        Coach coach = new Coach(nameCoach, descriptCoach, team, urlCoach, isConfirmed);
         coachRepository.save(coach);
     }
     @Transactional
@@ -47,8 +48,8 @@ public class CoachServise {
         return model.addAttribute("coach", res);
     }
     @Transactional
-    public void editCoachToDB(Long id, String nameCoach, String descriptCoach, Team team,String urlCoach) {
-        coachRepository.updateCoach(nameCoach, descriptCoach, team, urlCoach, id);
+    public void editCoachToDB(Long id, String nameCoach, String descriptCoach, Team team, String urlCoach, Boolean isConfirmed) {
+        coachRepository.updateCoach(nameCoach, descriptCoach, team, urlCoach,isConfirmed, id);
     }
     @Transactional
     public void deleteСoachOnDB(Long id) {

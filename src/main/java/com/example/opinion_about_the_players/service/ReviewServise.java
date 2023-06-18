@@ -32,7 +32,6 @@ public class ReviewServise {
         List<Review> reviews = reviewRepository.findAll();
         return model.addAttribute("reviews", reviews);
     }
-    @Transactional
     public Model getModelReviews(Long id, Model model) {
         List<Review> reviews = reviewRepository.getByNameWithPlayer(id);
         return model.addAttribute("reviews", reviews);
@@ -77,5 +76,15 @@ public class ReviewServise {
         return (User) authentication.getPrincipal();
     }
 
+    @Transactional
+    public void deleteReviewOnDB(Long id) {
+        Review review = reviewRepository.findById(id).orElseThrow();
+        reviewRepository.delete(review);
+    }
 
+    @Transactional
+    public void deleteCommentaryOnDB(Long id) {
+        Commentary commentary = commentaryRepository.findById(id).orElseThrow();
+        commentaryRepository.delete(commentary);
+    }
 }

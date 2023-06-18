@@ -12,6 +12,10 @@
     <h1>Редактирование статьи</h1>
     <div th:each="element : ${coach}" >
         <form  method="post" >
+            <div sec:authorize="hasAuthority('ADMIN')" class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" name="isConfirmed" value="true">
+                <p class="text-start" >Верификация тренера</p>
+            </div><br>
             <input type="text" th:value="${element.nameCoach}" name="nameCoach" placeholder="Введите название статьи" class="form-control"><br>
             <input type="text" th:value="${element.urlCoach}" name="urlCoach" placeholder="Введите ссылку на фото игрока" class="form-control"><br>
             <textarea name="descriptCoach"  placeholder="Введите полный текст статьи" class="form-control" th:text="${element.descriptCoach}" /><br>

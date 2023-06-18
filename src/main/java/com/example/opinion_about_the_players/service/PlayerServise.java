@@ -25,6 +25,7 @@ public class PlayerServise {
         List<Player> players = playerRepository.getConfirmedPlayers();
         return model.addAttribute("players", players);
     }
+
     @Transactional
     public Model getNoApprovePlayers(Model model) {
         List<Player> players = playerRepository.getNoConfirmedPlayers();
@@ -39,7 +40,7 @@ public class PlayerServise {
     public boolean existsPlayer(Long id) {
         return playerRepository.existsById(id);
     }
-    @Transactional
+
     public Model getInfoByPlayers(Long id, Model model) {
 
         Optional<Player> player = playerRepository.findById(id);

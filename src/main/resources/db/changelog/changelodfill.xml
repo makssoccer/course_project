@@ -10,7 +10,8 @@
 
   <changeSet id="11" author="Maks">
       <insert tableName="usr" >
-          <column name="username" value="Vllll"/>
+<!--          <column name="username" value="Vllll"/>-->
+          <column name="username" value="Admin"/>
           <column name="password" value="1"/>
           <column name="active" value="true"/>
           <column name="email" value="emal@gmail.com"/>
@@ -22,6 +23,22 @@
         <insert tableName="user_role" >
             <column name="user_id" value="1"/>
             <column name="role" value="ADMIN"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="13" author="Maks">
+        <insert tableName="team" >
+            <column name="name_team" value="Barcelona "/>
+            <column name="url_team" value="https://tmssl.akamaized.net/images/wappen/head/131.png?lm=1406739548"/>
+            <column name="is_confirmed" value="true"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="14" author="Maks">
+        <insert tableName="player" >
+            <column name="name" value="Pedro González López"/>
+            <column name="nickname" value="Pedri"/>
+            <column name="is_confirmed" value="true"/>
         </insert>
     </changeSet>
 

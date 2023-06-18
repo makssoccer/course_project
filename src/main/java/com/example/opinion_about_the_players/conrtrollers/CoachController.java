@@ -45,8 +45,9 @@ public class CoachController {
     public String coachPostAdd(@RequestParam String nameCoach,
                                 @RequestParam String descriptCoach,
                                 @RequestParam(value = "team", required = false) Team team,
-                                @RequestParam(value = "urlCoach", required = false) String urlCoach) {
-        coachServise.saveCoach(nameCoach,  descriptCoach, team, urlCoach);
+                                @RequestParam(value = "urlCoach", required = false) String urlCoach,
+                                @RequestParam(value = "isConfirmed", required = false, defaultValue = "false") Boolean isConfirmed) {
+        coachServise.saveCoach(nameCoach,  descriptCoach, team, urlCoach, isConfirmed);
         return "redirect:/coaches";
     }
 
@@ -88,8 +89,9 @@ public class CoachController {
                                   @RequestParam String nameCoach,
                                   @RequestParam String descriptCoach,
                                   @RequestParam(value = "team", required = false) Team team,
-                                  @RequestParam(value = "urlCoach", required = false) String urlCoach) {
-        coachServise.editCoachToDB(id, nameCoach, descriptCoach, team,  urlCoach);
+                                  @RequestParam(value = "urlCoach", required = false) String urlCoach,
+                                  @RequestParam(value = "isConfirmed", required = false, defaultValue = "false") Boolean isConfirmed) {
+        coachServise.editCoachToDB(id, nameCoach, descriptCoach, team,  urlCoach,isConfirmed);
         return "redirect:/coaches";
     }
 

@@ -27,6 +27,12 @@ public class PlayerController {
         userService.getModelUsers(model);
         return "playerPackage/players";
     }
+    @GetMapping("/playersNoConf")
+    public String playerNoConfMain(Model model) {
+        playerServise.getNoApprovePlayers(model);
+        userService.getModelUsers(model);
+        return "playerPackage/playersNoConf";
+    }
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     @GetMapping("/players/add")
     public String playerAdd(Model model) {

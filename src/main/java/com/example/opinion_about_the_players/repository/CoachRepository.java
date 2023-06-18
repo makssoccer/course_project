@@ -24,11 +24,12 @@ public interface CoachRepository extends JpaRepository<Coach,Long> {
 
     @Modifying
     @Query("update Coach c set  c.nameCoach = :nameCoach,  c.descriptCoach = :descriptCoach, " +
-            "c.team = :team,  c.urlCoach = :urlCoach   where c.id = :id")
+            "c.team = :team,  c.urlCoach = :urlCoach, c.isConfirmed = :isConfirmed   where c.id = :id")
     void updateCoach(@Param("nameCoach")String nameCoach,
                      @Param("descriptCoach")String descriptCoach,
                      @Param("team") Team team,
                      @Param("urlCoach") String urlCoach,
+                     @Param("isConfirmed") Boolean isConfirmed,
                      @Param("id") Long id);
 }
 

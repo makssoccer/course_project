@@ -33,7 +33,7 @@
 
 
 
-        <a th:href="'/coaches/' + ${element.id} + 'edit'" class="btn btn-warning">Редактировать</a><br><br>
+        <a sec:authorize="hasAuthority('ADMIN')"  th:href="'/coaches/' + ${element.id} + 'edit'" class="btn btn-warning">Редактировать</a><br><br>
             <div class="container-sm"
                  th:each="el : ${element.getReviews()}">
                 <div th:each="e : ${el.getUsr()}">
@@ -47,7 +47,7 @@
 
             <input type="text" name="anons" placeholder="Введите  заголовок обзора" class="form-control"><br>
             <textarea name="fullReview" placeholder="Введите ваше мнение об игроке" class="form-control"></textarea><br>
-            <button type="submit" class="btn btn-success">Добавить Отзыв</button>
+            <button sec:authorize="hasAnyAuthority('ADMIN','USER')"  type="submit" class="btn btn-success">Добавить Отзыв</button>
         </form>
         <form sec:authorize="hasAuthority('ADMIN')" th:action="'/coaches/' + ${element.id} + 'remove'" method="post">
             <button class="btn btn-warning" type="submit">Удалить</button>

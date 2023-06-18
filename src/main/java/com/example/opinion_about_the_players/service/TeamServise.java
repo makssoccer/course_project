@@ -34,9 +34,9 @@ public class TeamServise {
 
     }
     @Transactional
-    public void saveTeam(String nameTeam, List<Tournament> tournament, String urlTeam) {
+    public void saveTeam(String nameTeam, List<Tournament> tournament, String urlTeam, Boolean isConfirmed) {
         if (!nameTeam.isEmpty()) {
-            Team team = new Team(nameTeam, tournament,urlTeam);
+            Team team = new Team(nameTeam, tournament,urlTeam,isConfirmed);
             teamRepository.save(team);
         }
     }
@@ -50,10 +50,11 @@ public class TeamServise {
         return model.addAttribute("team", resol);
     }
     @Transactional
-    public void editTeam(Long id, String nameTeam, Tournament tournament,String urlTeam) {
+    public void editTeam(Long id, String nameTeam, Tournament tournament,String urlTeam, Boolean isConfirmed) {
         Team team = teamRepository.findById(id).orElseThrow();
         team.setNameTeam(nameTeam);
         team.setUrlTeam(urlTeam);
+        team.setIsConfirmed(isConfirmed);
         if(!team.getTournament().contains(tournament)){
         team.setTourn(tournament);
         }

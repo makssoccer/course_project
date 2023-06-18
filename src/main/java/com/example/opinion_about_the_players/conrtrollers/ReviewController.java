@@ -19,10 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ReviewController {
 
         private final PlayerServise playerServise;
-        private final TeamServise teamServise;
-        private final CountryServise countryServise;
         private final ReviewServise reviewServise;
-        private final UserService userService;
 
 
 
@@ -65,9 +62,21 @@ public class ReviewController {
     public String playerPostAdd(@RequestParam(value = "review") Long review,
                                 @RequestParam String userComment) {
         reviewServise.saveCommentReviews(review , userComment);
-        return "playerPackage/players";
+        return "redirect:/players";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/review/{id}remove")
+    public String reviewPostDelete(@PathVariable(value = "id") Long id) {
+        reviewServise.deleteReviewOnDB(id);
+        return "redirect:/players";
+    }
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/commentary/{id}remove")
+    public String playerPostDelete(@PathVariable(value = "id") Long id) {
+        reviewServise.deleteCommentaryOnDB(id);
+        return "redirect:/players";
+    }
 
 
 

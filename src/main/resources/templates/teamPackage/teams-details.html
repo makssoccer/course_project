@@ -10,7 +10,7 @@
 <header th:insert="blocks/header :: header "></header>
 <div class="container mt-5">
 
-    <div th:each="element : ${team}" class=""alert alert-info mt-2>
+    <div th:each="element : ${team}" >
         <div th:if="${element.isConfirmed}">
             <h1 class="text-success">Эта Команда верифицирована администрацией сайта</h1>
         </div>
@@ -46,7 +46,7 @@
             </div>
         </div>
         </div> <br>
-        <a th:href="'/teams/' + ${element.id} + 'edit'" class="btn btn-warning">Редактировать</a><br><br>
+        <a sec:authorize="hasAuthority('ADMIN')"  th:href="'/teams/' + ${element.id} + 'edit'" class="btn btn-warning">Редактировать</a><br><br>
         <form sec:authorize="hasAuthority('ADMIN')" th:action="'/teams/' + ${element.id} + 'remove'" method="post">
 
             <button class="btn btn-warning" type="submit">Удалить</button>

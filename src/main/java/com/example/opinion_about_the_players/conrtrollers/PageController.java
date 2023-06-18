@@ -21,7 +21,6 @@ import java.util.List;
 public class PageController {
     private final TeamServise teamServise;
     private final TournamentServise tournamentServise;
-    private final CountryServise countryServise;
 
 
     //Вывод всех клубов на экран
@@ -32,15 +31,13 @@ public class PageController {
     }
 
     //получаем все турниры
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     @GetMapping("/teams/add")
     public String teamAdd(Model model) {
         tournamentServise.getModelTournaments(model);
-        countryServise.getModelCount(model);
 //        парсинг Стран
-        countryServise.Scrape();
+//        countryServise.Scrape();
         return "teamPackage/teams-add";
-
     }
 
     //Добавление клуба, лиги и страну
@@ -48,13 +45,9 @@ public class PageController {
     @PostMapping("/teams/add")
     public String teamPostAdd(@RequestParam(value = "nameTeam", required = false) String nameTeam,
                               @RequestParam(value = "tournament", required = false) List<Tournament> tournament,
-                              @RequestParam(value = "country", required = false) Country country,
-                              @RequestParam(value = "nameCountry", required = false) String nameCountry,
-                              @RequestParam(value = "nameTournament", required = false) String nameTournament,
-                              @RequestParam(value = "urlTeam", required = false) String urlTeam) {
-        tournamentServise.saveTournament(nameTournament, country);
-        countryServise.saveCountry(nameCountry);
-        teamServise.saveTeam(nameTeam, tournament,urlTeam);
+                              @RequestParam(value = "urlTeam", required = false) String urlTeam,
+                              @RequestParam(value = "isConfirmed", required = false, defaultValue = "false") Boolean isConfirmed) {
+        teamServise.saveTeam(nameTeam, tournament,urlTeam,isConfirmed);
         return "redirect:/teams";
     }
 
@@ -84,8 +77,9 @@ public class PageController {
     public String teamPostUbdate(@PathVariable(value = "id") Long id,
                                  @RequestParam String nameTeam,
                                  @RequestParam Tournament tournament,
-                                 @RequestParam(value = "urlTeam", required = false) String urlTeam) {
-        teamServise.editTeam(id, nameTeam, tournament,urlTeam);
+                                 @RequestParam(value = "urlTeam", required = false) String urlTeam,
+                                 @RequestParam(value = "isConfirmed", required = false, defaultValue = "false") Boolean isConfirmed) {
+        teamServise.editTeam(id, nameTeam, tournament,urlTeam,isConfirmed);
         return "redirect:/teams";
     }
 

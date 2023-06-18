@@ -139,9 +139,9 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="user_comment" type="varchar(255)"/>
-            <column name="country_id" type="bigint">
-                <constraints foreignKeyName="country_id_commentary_fk" referencedTableName="country" referencedColumnNames="id"/>
-            </column>
+<!--            <column name="country_id" type="bigint">-->
+<!--                <constraints foreignKeyName="country_id_commentary_fk" referencedTableName="country" referencedColumnNames="id"/>-->
+<!--            </column>-->
             <column name="user_id" type="bigint">
                 <constraints foreignKeyName="user_id_commentary_fk" referencedTableName="usr" referencedColumnNames="id"/>
             </column>

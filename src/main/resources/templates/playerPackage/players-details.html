@@ -19,7 +19,7 @@
 <header th:insert="blocks/header :: header "></header>
 <div class="container mt-5">
 
-    <div th:each="element : ${player}" class=""alert alert-info mt-2>
+    <div th:each="element : ${player}" >
 
         <div th:if="${element.isConfirmed}">
             <h1 class="text-success">Этот игрок верифицирован администрацией сайта</h1>
@@ -50,20 +50,28 @@
 
         <p th:text="${element.fullText}"></p>
 
-        <a th:href="'/review'" class="btn btn-warning">Оставить Обзор</a>
+        <a sec:authorize="hasAnyAuthority('ADMIN','USER')" th:href="'/review'" class="btn btn-warning">Оставить Обзор</a>
 
-        <a th:href="'/players/' + ${element.id} + 'edit'" class="btn btn-warning">Редактировать</a><br><br>
+        <a  sec:authorize="hasAnyAuthority('ADMIN')"  th:href="'/players/' + ${element.id} + 'edit'" class="btn btn-warning">Редактировать</a><br><br>
             <div class="container-sm"
                  th:each="el : ${element.getReviews()}">
                 <div th:each="e : ${el.getUsr()}">
                     <p th:text="${e.username}">VALUE</p></div>
                 <h3 name="jir" th:text="${el.getAnons()}">VALUE</h3>
                 <p th:text="${el.getFullReview()}">VALUE</p>
+
+                <form sec:authorize="hasAuthority('ADMIN')" th:action="'/review/' + ${el.id} + 'remove'" method="post">
+                    <button class="btn btn-warning" type="submit">Удалить обзор</button>
+                </form>
+
                 <div class="container-sm"
                      th:each="ele : ${el.getCommentaries()}">
                     <div th:each="el : ${ele.getUsr()}">
                         <p th:text="${el.username}">VALUE</p></div>
                     <h3  th:text="${ele.userComment}">VALUE</h3>
+                    <form sec:authorize="hasAuthority('ADMIN')" th:action="'/commentary' + ${ele.id} + 'remove'" method="post">
+                        <button class="btn btn-warning" type="submit">Удалить комментарий</button>
+                    </form>
                 </div>
 
                 <form  action="#" th:action="@{/commentary}" method="post">
@@ -71,15 +79,11 @@
                     <input name="review" th:value="${el.id}" hidden>
 
                     <textarea name="userComment" placeholder="Введите ваше мнение об игроке" class="form-control"></textarea><br>
-                    <button type="submit" class="btn btn-success">Добавить Отзыв</button>
+                    <button sec:authorize="hasAnyAuthority('ADMIN','USER')"  type="submit" class="btn btn-success">Оставить комментарий</button>
+
                 </form>
 
-
-
             </div><br>
-
-
-
 
         <form sec:authorize="hasAuthority('ADMIN')" th:action="'/players/' + ${element.id} + 'remove'" method="post">
             <button class="btn btn-warning" type="submit">Удалить</button>
