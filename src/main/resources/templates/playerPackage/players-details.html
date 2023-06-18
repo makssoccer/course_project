@@ -1,10 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <title th:text="${tilte}" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <style>
         .container-sm{
             background-color: rgb(255, 255, 128);
@@ -15,42 +18,77 @@
 <body>
 <header th:insert="blocks/header :: header "></header>
 <div class="container mt-5">
-    <div sec:authorize="isAuthenticated()">
-        Authenticated as <span sec:authentication="name"></span></div>
 
-    <div th:each="element : ${player}" class=""alert alert-info mt-2>
-        <h1 th:text="${element.name}"></h1>
-        <h3>Country</h3>
-        <div th:each="el : ${element.getCountry()}">
-            <p th:text="${el.nameCountry}">VALUE</p>
+    <div th:each="element : ${player}" >
+
+        <div th:if="${element.isConfirmed}">
+            <h1 class="text-success">Этот игрок верифицирован администрацией сайта</h1>
+             </div>
+        <div th:unless="${element.isConfirmed}">
+            <h1 class="text-danger">Этот игрок НЕверифицирован администрацией сайта</h1>
+
+        </div>
+        <div class="row">
+            <h1 th:text="${element.name}"></h1>
+            <div class="col">
+                <img th:src="${element.urlPlayer}" width="400" height="450"  alt="...">
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div th:each="ele : ${element.getTeam()}"><br><br>
+                        <h5 class="fs-3" th:text="${ele.nameTeam}">VALUE</h5>
+                        <img th:href="'/teams/' + ${ele.id}" th:src="${ele.urlTeam}" width="140" height="180"  alt="..."></div><br>
+                </div><br>
+                <div class="row">
+                    <div th:each="elem : ${element.getCountry()}">
+                        <h5 class="fs-3" th:text="${elem.nameCountry}">VALUE</h5>
+                        <img th:src="${elem.urlCountry}"  width="140" height="90"  alt="..."></div><br><br>
+
+                </div>
+            </div>
         </div><br>
-        <h3>Team</h3>
-        <div th:each="el : ${element.getTeam()}">
-            <p th:text="${el.nameTeam}">VALUE</p>
-        </div><br>
+
         <p th:text="${element.fullText}"></p>
 
+        <a sec:authorize="hasAnyAuthority('ADMIN','USER')" th:href="'/review'" class="btn btn-warning">Оставить Обзор</a>
 
-
-        <a th:href="'/players/' + ${element.id} + 'edit'" class="btn btn-warning">Редактировать</a><br><br>
-        <form th:action="'/players/' + ${element.id} + 'remove'" method="post">
-            <button class="btn btn-warning" type="submit">Удалить</button><br><br>
-
+        <a  sec:authorize="hasAnyAuthority('ADMIN')"  th:href="'/players/' + ${element.id} + 'edit'" class="btn btn-warning">Редактировать</a><br><br>
             <div class="container-sm"
                  th:each="el : ${element.getReviews()}">
                 <div th:each="e : ${el.getUsr()}">
                     <p th:text="${e.username}">VALUE</p></div>
                 <h3 name="jir" th:text="${el.getAnons()}">VALUE</h3>
                 <p th:text="${el.getFullReview()}">VALUE</p>
+
+                <form sec:authorize="hasAuthority('ADMIN')" th:action="'/review/' + ${el.id} + 'remove'" method="post">
+                    <button class="btn btn-warning" type="submit">Удалить обзор</button>
+                </form>
+
+                <div class="container-sm"
+                     th:each="ele : ${el.getCommentaries()}">
+                    <div th:each="el : ${ele.getUsr()}">
+                        <p th:text="${el.username}">VALUE</p></div>
+                    <h3  th:text="${ele.userComment}">VALUE</h3>
+                    <form sec:authorize="hasAuthority('ADMIN')" th:action="'/commentary' + ${ele.id} + 'remove'" method="post">
+                        <button class="btn btn-warning" type="submit">Удалить комментарий</button>
+                    </form>
+                </div>
+
+                <form  action="#" th:action="@{/commentary}" method="post">
+
+                    <input name="review" th:value="${el.id}" hidden>
+
+                    <textarea name="userComment" placeholder="Введите ваше мнение об игроке" class="form-control"></textarea><br>
+                    <button sec:authorize="hasAnyAuthority('ADMIN','USER')"  type="submit" class="btn btn-success">Оставить комментарий</button>
+
+                </form>
+
             </div><br>
+
+        <form sec:authorize="hasAuthority('ADMIN')" th:action="'/players/' + ${element.id} + 'remove'" method="post">
+            <button class="btn btn-warning" type="submit">Удалить</button>
         </form>
 
-        <form th:action="'/players/' + ${element.id}"  method="post">
-
-            <input type="text" name="anons" placeholder="Введите  заголовок обзора" class="form-control"><br>
-            <textarea name="fullReview" placeholder="Введите ваше мнение об игроке" class="form-control"></textarea><br>
-            <button type="submit" class="btn btn-success">Добавить Отзыв</button>
-        </form>
 
     </div>
 

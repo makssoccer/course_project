@@ -12,7 +12,7 @@ import java.util.List;
 public class Country {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nameCountry;
@@ -25,10 +25,18 @@ public class Country {
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
     private List<Tournament> tournament;
 
+    @Column(name="urlCountry", length = 255)
+    private String urlCountry;
+
     public Country() {
     }
 
     public Country(String nameCountry) {
         this.nameCountry = nameCountry;
     }
+    public Country(String nameCountry, String urlCountry) {
+        this.nameCountry = nameCountry;
+        this.urlCountry= urlCountry;
+    }
+
 }

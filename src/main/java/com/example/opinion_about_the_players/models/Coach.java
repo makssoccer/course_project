@@ -5,43 +5,49 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 @Setter
 @Getter
 @Entity
 @Table(name = "coach")
-public class Coach {
+public class Coach  {
 
-    @Setter
-    @Getter
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //connection with club
-    @ManyToMany(mappedBy = "tournament", fetch = FetchType.LAZY)
-    private List<Team> team;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
 
     //connection with reviews
     @OneToMany(mappedBy = "coach", fetch = FetchType.LAZY)
 
     private List<Review> reviews;
 
-    private String name;
+    private String nameCoach;
 
     private LocalDateTime dob;
 
-    private String descriptionsCoach;
+    private String descriptCoach;
+
+    @Column(name="urlCoach", length = 255)
+    private String urlCoach;
+
+    private Boolean isConfirmed;
 
     public Coach() {
     }
-
-    public Coach(String name, String fullText, List<Team> teams, Country country, LocalDateTime dob) {
-        this.name = name;
-        this.dob = dob;
-        this.descriptionsCoach = fullText;
-        this.team = teams;
+    public void info(){};
+    public Coach(String nameCoach, String descriptCoach, Team team, String urlCoach, Boolean isConfirmed) {
+        this.nameCoach = nameCoach;
+//        this.dob = dob;
+        this.descriptCoach = descriptCoach;
+        this.team = team;
+        this.urlCoach = urlCoach;
+        this.isConfirmed = isConfirmed;
     }
 
 }

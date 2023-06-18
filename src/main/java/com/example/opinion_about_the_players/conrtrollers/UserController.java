@@ -3,10 +3,8 @@ package com.example.opinion_about_the_players.conrtrollers;
 
 import com.example.opinion_about_the_players.models.Role;
 import com.example.opinion_about_the_players.models.User;
-import com.example.opinion_about_the_players.repository.UserRepository;
 import com.example.opinion_about_the_players.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;

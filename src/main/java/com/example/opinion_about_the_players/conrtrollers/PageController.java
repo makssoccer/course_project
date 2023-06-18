@@ -2,7 +2,6 @@ package com.example.opinion_about_the_players.conrtrollers;
 
 import com.example.opinion_about_the_players.models.Country;
 import com.example.opinion_about_the_players.models.Tournament;
-import com.example.opinion_about_the_players.repository.TeamRepository;
 import com.example.opinion_about_the_players.service.TeamServise;
 import com.example.opinion_about_the_players.service.CountryServise;
 import com.example.opinion_about_the_players.service.TournamentServise;
@@ -22,7 +21,6 @@ import java.util.List;
 public class PageController {
     private final TeamServise teamServise;
     private final TournamentServise tournamentServise;
-    private final CountryServise countryServise;
 
 
     //Вывод всех клубов на экран
@@ -33,11 +31,12 @@ public class PageController {
     }
 
     //получаем все турниры
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     @GetMapping("/teams/add")
     public String teamAdd(Model model) {
         tournamentServise.getModelTournaments(model);
-        countryServise.getModelCount(model);
+//        парсинг Стран
+//        countryServise.Scrape();
         return "teamPackage/teams-add";
     }
 
@@ -46,17 +45,14 @@ public class PageController {
     @PostMapping("/teams/add")
     public String teamPostAdd(@RequestParam(value = "nameTeam", required = false) String nameTeam,
                               @RequestParam(value = "tournament", required = false) List<Tournament> tournament,
-                              @RequestParam(value = "country", required = false) Country country,
-                              @RequestParam(value = "nameCountry", required = false) String nameCountry,
-                              @RequestParam(value = "nameTournament", required = false) String nameTournament,
-                              Model model) {
-        tournamentServise.saveTournament(nameTournament, country);
-        countryServise.saveCountry(nameCountry);
-        teamServise.saveTeam(nameTeam, tournament);
+                              @RequestParam(value = "urlTeam", required = false) String urlTeam,
+                              @RequestParam(value = "isConfirmed", required = false, defaultValue = "false") Boolean isConfirmed) {
+        teamServise.saveTeam(nameTeam, tournament,urlTeam,isConfirmed);
         return "redirect:/teams";
     }
 
     //Получаем информацию
+
     @GetMapping("/teams/{id}")
     public String teamDetails(@PathVariable(value = "id") Long id, Model model) {
         if (!teamServise.existsTeam(id)) {
@@ -66,19 +62,6 @@ public class PageController {
         teamServise.getInfoByTeams(id, model);
         return "teamPackage/teams-details";
     }
-
-    @PostMapping("/teams/{id}")
-    public String teamPostDetails(@PathVariable(value = "id") Long id,
-                                  @RequestParam String nameTeam,
-                                  @RequestParam List<Tournament> tournament,
-                                  Model model) {
-        if (!teamServise.existsTeam(id)) {
-            return "redirect:/teams";
-        }
-        teamServise.editTeam(id, nameTeam, tournament);
-        return "redirect:/teams-details";
-    }
-
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/teams/{id}edit")
     public String teamEdit(@PathVariable(value = "id") Long id, Model model) {
@@ -89,20 +72,20 @@ public class PageController {
         teamServise.getInfoByTeams(id, model);
         return "teamPackage/teams-edit";
     }
-
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/teams/{id}edit")
     public String teamPostUbdate(@PathVariable(value = "id") Long id,
                                  @RequestParam String nameTeam,
-                                 @RequestParam List<Tournament> tournament,
-                                 Model model) {
-        teamServise.editTeam(id, nameTeam, tournament);
+                                 @RequestParam Tournament tournament,
+                                 @RequestParam(value = "urlTeam", required = false) String urlTeam,
+                                 @RequestParam(value = "isConfirmed", required = false, defaultValue = "false") Boolean isConfirmed) {
+        teamServise.editTeam(id, nameTeam, tournament,urlTeam,isConfirmed);
         return "redirect:/teams";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/teams/{id}remove")
-    public String teamPostDelete(@PathVariable(value = "id") Long id, Model model) {
+    public String teamPostDelete(@PathVariable(value = "id") Long id) {
         teamServise.deleteTeamOnDB(id);
         return "redirect:/teams";
     }

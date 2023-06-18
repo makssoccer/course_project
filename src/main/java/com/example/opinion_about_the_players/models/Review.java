@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Setter
 @Getter
 @Entity
@@ -12,8 +14,8 @@ import java.time.LocalDateTime;
 public class Review {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     //connection with player
     @ManyToOne(fetch = FetchType.LAZY)
@@ -28,6 +30,9 @@ public class Review {
     @JoinColumn(name = "user_id")
     private User usr;
 
+    @OneToMany(mappedBy = "review", fetch = FetchType.LAZY)
+    private List<Commentary> commentaries ;
+
     @Column(name = "anons")
     private String anons;
 
@@ -36,6 +41,11 @@ public class Review {
 
     @Column(name = "timePost")
     private LocalDateTime timePost;
+
+
+    public List<Commentary> getCommentaries() {
+        return commentaries;
+    }
 
     public Review() {
     }
@@ -47,4 +57,12 @@ public class Review {
         this.fullReview = fullReview;
         this.timePost = timePost;
     }
+    public Review(Coach coach, User usr, String anons, String fullReview, LocalDateTime timePost) {
+        this.coach = coach;
+        this.usr = usr;
+        this.anons = anons;
+        this.fullReview = fullReview;
+        this.timePost = timePost;
+    }
+
 }

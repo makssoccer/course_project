@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+      http://www.liquibase.org/xml/ns/pro
+      http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd%22%3E">
+
+    <changeSet id="1" author="makss">
+        <createTable tableName="usr">
+<!--        <createTable tableName="'user'">-->
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="active" type="boolean"/>
+            <column name="email" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+            <column name="username" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="makss">
+        <createTable tableName="user_role">
+            <column name="user_id" type="bigint">
+                <constraints foreignKeyName="user_id_role_fk" referencedTableName="usr" referencedColumnNames="id"/>
+            </column>
+            <column name="role" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="3" author="makss">
+        <createTable tableName="team">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="is_confirmed" type="boolean"/>
+            <column name="url_team" type="varchar(255)"/>
+            <column name="name_team" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="vlad">
+        <createTable tableName="country">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="url_country" type="varchar(255)"/>
+            <column name="name_country" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5" author="vlad">
+        <createTable tableName="coach">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="is_confirmed" type="boolean"/>
+            <column name="url_coach" type="varchar(255)"/>
+            <column name="name_coach" type="varchar(255)"/>
+            <column name="descript_coach" type="varchar(255)"/>
+            <column name="dob" type="datetime(6)"/>
+            <column name="team_id" type="bigint">
+                <constraints foreignKeyName="team_id_coach_fk" referencedTableName="team" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="6" author="vlad">
+        <createTable tableName="player">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="is_confirmed" type="boolean"/>
+            <column name="url_player" type="varchar(255)"/>
+            <column name="nickname" type="varchar(255)"/>
+            <column name="name" type="varchar(255)"/>
+            <column name="full_text" type="varchar(255)"/>
+            <column name="dob" type="datetime(6)"/>
+            <column name="team_id" type="bigint">
+                <constraints foreignKeyName="team_id_player_fk" referencedTableName="team" referencedColumnNames="id"/>
+            </column>
+            <column name="country_id" type="bigint">
+                <constraints foreignKeyName="country_id_player_fk" referencedTableName="country" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="7" author="vlad">
+        <createTable tableName="tournament">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name_tournament" type="varchar(255)"/>
+            <column name="country_id" type="bigint">
+                <constraints foreignKeyName="country_id_tournament_fk" referencedTableName="country" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+        <changeSet id="8" author="Maks">
+            <createTable tableName="tournament_team">
+                <column name="team_id" type="bigint" autoIncrement="true">
+                    <constraints primaryKey="true" foreignKeyName="team_tournament_fk" referencedTableName="team"
+                                 referencedColumnNames="id"/>
+                </column>
+                <column name="tournament_id" type="bigint">
+                    <constraints primaryKey="true" foreignKeyName="tournament_team_fk" referencedTableName="tournament"
+                                 referencedColumnNames="id"/>
+                </column>
+            </createTable>
+        </changeSet>
+
+    <changeSet id="9" author="vlad">
+        <createTable tableName="review">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="anons" type="varchar(255)"/>
+            <column name="full_review" type="varchar(255)"/>
+            <column name="time_post" type="datetime(6)"/>
+            <column name="user_id" type="bigint">
+                <constraints foreignKeyName="user_id_review_fk" referencedTableName="usr" referencedColumnNames="id"/>
+            </column>
+            <column name="player_id" type="bigint">
+                <constraints foreignKeyName="player_id_review_fk" referencedTableName="player" referencedColumnNames="id"/>
+            </column>
+            <column name="coach_id" type="bigint">
+                <constraints foreignKeyName="coach_id_review_fk" referencedTableName="coach" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="10" author="vlad">
+        <createTable tableName="commentary">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_comment" type="varchar(255)"/>
+<!--            <column name="country_id" type="bigint">-->
+<!--                <constraints foreignKeyName="country_id_commentary_fk" referencedTableName="country" referencedColumnNames="id"/>-->
+<!--            </column>-->
+            <column name="user_id" type="bigint">
+                <constraints foreignKeyName="user_id_commentary_fk" referencedTableName="usr" referencedColumnNames="id"/>
+            </column>
+            <column name="review_id" type="bigint">
+                <constraints foreignKeyName="review_id_commentary_fk" referencedTableName="review" referencedColumnNames="id"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+
+
+
+
+</databaseChangeLog>

@@ -7,11 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +36,7 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username);
     }
-    @Transactional
+    @Transactional(readOnly = true)
     public List<User> findAll() {
         return userRepository.findAll();
     }

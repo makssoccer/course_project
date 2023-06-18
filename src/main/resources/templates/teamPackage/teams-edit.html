@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
   <title>Редактирование статьи</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -9,12 +10,19 @@
 <header th:insert="blocks/header :: header "></header>
 <div class="container mt-5">
 
-  <div th:each="element : ${team}" class=""alert alert-info mt-2>
+  <div th:each="element : ${team}" >
     <h1 th:text="${element.nameTeam}"></h1>
+
+    <div sec:authorize="hasAuthority('ADMIN')" class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" name="isConfirmed" value="true">
+      <p class="text-start" >Верификация игрока</p>
+    </div><br>
 
     <form  method="post" >
       <input type="text" th:value="${element.nameTeam}" name="nameTeam" placeholder="Введите название клуба" class="form-control"><br>
-      <select name="tournament">
+      <input type="text" th:value="${element.urlTeam}" name="urlTeam" placeholder="Введите ссылку на Эмблему команды" class="form-control"><br>
+      <select name="tournament"  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <option selected value="">Open this select menu</option>
         <option th:each="el : ${tournaments}"
                 th:value="${el.id}"
                 th:text="${el.nameTournament}"></option>

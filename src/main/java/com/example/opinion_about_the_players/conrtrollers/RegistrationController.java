@@ -3,10 +3,8 @@ package com.example.opinion_about_the_players.conrtrollers;
 
 import com.example.opinion_about_the_players.models.Role;
 import com.example.opinion_about_the_players.models.User;
-import com.example.opinion_about_the_players.repository.UserRepository;
 import com.example.opinion_about_the_players.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +39,7 @@ public class RegistrationController {
             return "error-register";
         }
         user.setActive(true);
-        user.setRoles(Collections.singleton(Role.ADMIN));
+        user.setRoles(Collections.singleton(Role.USER));
         userService.savePlayer(user);
         model.addAttribute("message", "New account!");
         model.addAttribute("title", "New account");
