@@ -4,7 +4,7 @@ import com.example.opinion_about_the_players.models.*;
 import com.example.opinion_about_the_players.repository.CoachRepository;
 import com.example.opinion_about_the_players.repository.CommentaryRepository;
 import com.example.opinion_about_the_players.repository.PlayerRepository;
-import com.example.opinion_about_the_players.repository.ReviewRepositiry;
+import com.example.opinion_about_the_players.repository.ReviewRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,17 +21,17 @@ import java.util.List;
 @AllArgsConstructor
 public class ReviewServise {
 
-    private final ReviewRepositiry reviewRepository;
+    private final ReviewRepository reviewRepository;
 
     private final PlayerRepository playerRepository;
 
     private final CoachRepository coachRepository;
     private final CommentaryRepository commentaryRepository;
-    @Transactional
-    public Model getReviews(Model model) {
-        List<Review> reviews = reviewRepository.findAll();
-        return model.addAttribute("reviews", reviews);
-    }
+//    @Transactional
+//    public Model getReviews(Model model) {
+//        List<Review> reviews = reviewRepository.findAll();
+//        return model.addAttribute("reviews", reviews);
+//    }
     public Model getModelReviews(Long id, Model model) {
         List<Review> reviews = reviewRepository.getByNameWithPlayer(id);
         return model.addAttribute("reviews", reviews);
@@ -80,6 +80,8 @@ public class ReviewServise {
     public void deleteReviewOnDB(Long id) {
         Review review = reviewRepository.findById(id).orElseThrow();
         reviewRepository.delete(review);
+
+
     }
 
     @Transactional

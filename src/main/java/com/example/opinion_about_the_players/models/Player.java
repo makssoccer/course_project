@@ -28,7 +28,7 @@ public class Player {
     private Team team;
 
     //connection with reviews
-    @OneToMany(mappedBy = "player", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
     private List<Review> reviews;
 
     private String name;

@@ -26,14 +26,14 @@
         <img th:src="${element.urlCoach}" width="400" height="500"  alt="...">
         <h1 th:text="${element.nameCoach}"></h1>
         <h3>Team</h3>
-        <div th:each="el : ${element.getTeam()}">
-            <a th:href="'/coaches/' + ${el.id}" class="list-group-item list-group-item-action list-group-item-primary"   th:text="${el.nameTeam}" >VALUE</a>
-        </div><br>
+        <div th:each="ele : ${element.getTeam()}"><br><br>
+            <h5 class="fs-3" th:text="${ele.nameTeam}">VALUE</h5>
+            <img th:href="'/teams/' + ${ele.id}" th:src="${ele.urlTeam}" width="140" height="180"  alt="..."></div><br>
+
         <p th:text="${element.descriptCoach}"></p>
 
 
 
-        <a sec:authorize="hasAuthority('ADMIN')"  th:href="'/coaches/' + ${element.id} + 'edit'" class="btn btn-warning">Редактировать</a><br><br>
             <div class="container-sm"
                  th:each="el : ${element.getReviews()}">
                 <div th:each="e : ${el.getUsr()}">
@@ -46,9 +46,12 @@
         <form th:action="'/coaches/' + ${element.id}"  method="post">
 
             <input type="text" name="anons" placeholder="Введите  заголовок обзора" class="form-control"><br>
-            <textarea name="fullReview" placeholder="Введите ваше мнение об игроке" class="form-control"></textarea><br>
+            <textarea name="fullReview" placeholder="Введите ваше мнение об Тренере" class="form-control"></textarea><br>
             <button sec:authorize="hasAnyAuthority('ADMIN','USER')"  type="submit" class="btn btn-success">Добавить Отзыв</button>
-        </form>
+        </form><br>
+
+    <a sec:authorize="hasAuthority('ADMIN')"  th:href="'/coaches/' + ${element.id} + 'edit'" class="btn btn-warning">Редактировать</a><br>
+
         <form sec:authorize="hasAuthority('ADMIN')" th:action="'/coaches/' + ${element.id} + 'remove'" method="post">
             <button class="btn btn-warning" type="submit">Удалить</button>
         </form>

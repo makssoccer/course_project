@@ -9,11 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface CommentaryRepository extends JpaRepository<Commentary, Long> {
-//    @EntityGraph(attributePaths = "player")
-//    @Query("select r from Review r where r.id = ?1")
-//    List<Review> getByNameWithPlayer(Long id);
+//    @EntityGraph(attributePaths = "review")
+//    @Query("select c from Commentary c where c.id = ?1")
+//    List<Commentary> getCommentaryByIdReview(Long id);
 
-//    @EntityGraph(attributePaths = "coach")
-//    @Query("select r from Review r where r.id = ?1")
-//    List<Review> getByNameWithCoach(Long id);
+//    @Query("select r from Commentary r where r.id = ?1")
+//    Commentary getCommentaryById(long id);
 }

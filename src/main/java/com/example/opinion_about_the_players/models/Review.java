@@ -30,7 +30,7 @@ public class Review {
     @JoinColumn(name = "user_id")
     private User usr;
 
-    @OneToMany(mappedBy = "review", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Commentary> commentaries ;
 
     @Column(name = "anons")

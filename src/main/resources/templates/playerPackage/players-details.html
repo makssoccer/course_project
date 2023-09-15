@@ -10,7 +10,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <style>
         .container-sm{
-            background-color: rgb(255, 255, 128);
+            background-color: #00ffff;
+            border: 1px;
+            border: 2px dotted;
+            border: medium dashed green;
         }
 
     </style>
@@ -57,7 +60,7 @@
                  th:each="el : ${element.getReviews()}">
                 <div th:each="e : ${el.getUsr()}">
                     <p th:text="${e.username}">VALUE</p></div>
-                <h3 name="jir" th:text="${el.getAnons()}">VALUE</h3>
+                <h3 th:text="${el.getAnons()}">VALUE</h3>
                 <p th:text="${el.getFullReview()}">VALUE</p>
 
                 <form sec:authorize="hasAuthority('ADMIN')" th:action="'/review/' + ${el.id} + 'remove'" method="post">
@@ -69,7 +72,7 @@
                     <div th:each="el : ${ele.getUsr()}">
                         <p th:text="${el.username}">VALUE</p></div>
                     <h3  th:text="${ele.userComment}">VALUE</h3>
-                    <form sec:authorize="hasAuthority('ADMIN')" th:action="'/commentary' + ${ele.id} + 'remove'" method="post">
+                    <form sec:authorize="hasAuthority('ADMIN')" th:action="'/commentary/' + ${ele.id} + 'remove'" method="post">
                         <button class="btn btn-warning" type="submit">Удалить комментарий</button>
                     </form>
                 </div>

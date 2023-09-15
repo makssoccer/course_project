@@ -1,9 +1,7 @@
 package com.example.opinion_about_the_players.conrtrollers;
 
-import com.example.opinion_about_the_players.models.Country;
 import com.example.opinion_about_the_players.models.Tournament;
 import com.example.opinion_about_the_players.service.TeamServise;
-import com.example.opinion_about_the_players.service.CountryServise;
 import com.example.opinion_about_the_players.service.TournamentServise;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,7 +16,7 @@ import java.util.List;
 
 @Controller
 @AllArgsConstructor
-public class PageController {
+public class TeamController {
     private final TeamServise teamServise;
     private final TournamentServise tournamentServise;
 

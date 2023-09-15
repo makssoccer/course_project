@@ -36,6 +36,7 @@ public class Team {
 
     private Boolean isConfirmed;
 
+
     private String nameTeam;
 
     @Column(name="urlTeam", length = 255)

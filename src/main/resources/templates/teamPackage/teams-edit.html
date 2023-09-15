@@ -13,12 +13,11 @@
   <div th:each="element : ${team}" >
     <h1 th:text="${element.nameTeam}"></h1>
 
-    <div sec:authorize="hasAuthority('ADMIN')" class="form-check form-switch">
-      <input class="form-check-input" type="checkbox" name="isConfirmed" value="true">
-      <p class="text-start" >Верификация игрока</p>
-    </div><br>
-
     <form  method="post" >
+      <div sec:authorize="hasAuthority('ADMIN')" class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" name="isConfirmed" value="true">
+        <p class="text-start" >Верификация игрока</p>
+      </div><br>
       <input type="text" th:value="${element.nameTeam}" name="nameTeam" placeholder="Введите название клуба" class="form-control"><br>
       <input type="text" th:value="${element.urlTeam}" name="urlTeam" placeholder="Введите ссылку на Эмблему команды" class="form-control"><br>
       <select name="tournament"  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">

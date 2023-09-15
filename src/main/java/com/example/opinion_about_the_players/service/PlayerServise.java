@@ -1,9 +1,11 @@
 package com.example.opinion_about_the_players.service;
 
+import com.example.opinion_about_the_players.models.Review;
 import com.example.opinion_about_the_players.models.Team;
 import com.example.opinion_about_the_players.models.Country;
 import com.example.opinion_about_the_players.models.Player;
 import com.example.opinion_about_the_players.repository.PlayerRepository;
+import com.example.opinion_about_the_players.repository.ReviewRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class PlayerServise {
 
     private final PlayerRepository playerRepository;
+    private final ReviewRepository reviewRepository;
+    private final ReviewServise reviewServise;
 
     //заполняем
     @Transactional
