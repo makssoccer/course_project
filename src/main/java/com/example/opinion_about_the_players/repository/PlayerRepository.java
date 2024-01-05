@@ -21,7 +21,7 @@ public interface PlayerRepository extends JpaRepository<Player,Long> {
 
     @Query("select p from Player p where p.isConfirmed != true")
     List<Player> getNoConfirmedPlayers();
-
+///////ameand
     @EntityGraph(attributePaths = {"country", "reviews"})
     @Query("select p from Player p where p.id = ?1")
     Player getPlayerW(long id);
