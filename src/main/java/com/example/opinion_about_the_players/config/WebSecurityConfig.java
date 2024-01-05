@@ -1,7 +1,6 @@
 package com.example.opinion_about_the_players.config;
 
 import com.example.opinion_about_the_players.models.Role;
-import com.example.opinion_about_the_players.models.User;
 import com.example.opinion_about_the_players.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

@@ -1,13 +1,11 @@
 package com.example.opinion_about_the_players.service;
 
-import com.example.opinion_about_the_players.models.Player;
 import com.example.opinion_about_the_players.models.Team;
 import com.example.opinion_about_the_players.models.Coach;
 import com.example.opinion_about_the_players.repository.CoachRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;

@@ -1,7 +1,6 @@
-package com.example.opinion_about_the_players.conrtrollers;
+package com.example.opinion_about_the_players.service.conrtrollers;
 
 import com.example.opinion_about_the_players.models.Country;
-import com.example.opinion_about_the_players.models.Tournament;
 import com.example.opinion_about_the_players.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,8 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Controller
 @AllArgsConstructor

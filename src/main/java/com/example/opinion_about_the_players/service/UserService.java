@@ -1,6 +1,7 @@
 package com.example.opinion_about_the_players.service;
 
-import com.example.opinion_about_the_players.models.*;
+import com.example.opinion_about_the_players.models.Role;
+import com.example.opinion_about_the_players.models.User;
 import com.example.opinion_about_the_players.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

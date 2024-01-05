@@ -1,4 +1,4 @@
-package com.example.opinion_about_the_players.conrtrollers;
+package com.example.opinion_about_the_players.service.conrtrollers;
 
 import com.example.opinion_about_the_players.models.Team;
 import com.example.opinion_about_the_players.service.CoachServise;

@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -24,7 +25,6 @@ public interface PlayerRepository extends JpaRepository<Player,Long> {
     @EntityGraph(attributePaths = {"country", "reviews"})
     @Query("select p from Player p where p.id = ?1")
     Player getPlayerW(long id);
-
 
     @Modifying
     @Query("update Player p set  p.name = :name, p.nickname = :nickname, p.fullText = :fullText, " +
